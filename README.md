@@ -15,7 +15,7 @@ In the `InvoicePrinter` project, invoices are printed for each customer using th
 1. Clone this repository.  
 2. Analyze the code.  
 3. Refactor the code.  
-4. Post your design considerations in [refactored/README.md](refactored/README.md)
+4. Post your design considerations in [refactored-code/README.md](refactored-code/README.md)
 
 ### Consider the following requirements:  
 
