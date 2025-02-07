@@ -5,23 +5,23 @@ namespace Insurify.Domain.Covers;
 public class CoverErrors
 {
     public static readonly Error NotFound = new(
-        "Cover.NotFound",
+        "InsurancePolicy.NotFound",
         "The cover with the specified identifier was not found");
 
     public static readonly Error Age = new(
-        "Cover.Age",
+        "InsurancePolicy.Age",
         "The current customer's age is not allowed for this cover");
 
     public static readonly Error NotAppliedFor = new(
-        "Cover.NotAppliedFor",
+        "InsurancePolicy.NotAppliedFor",
         "The cover is not pending");
 
     public static readonly Error NotConfirmed = new(
-        "Cover.NotReserved",
+        "InsurancePolicy.NotReserved",
         "The cover is not confirmed");
 
     public static readonly Error AlreadyStarted = new(
-        "Cover.AlreadyStarted",
+        "InsurancePolicy.AlreadyStarted",
         "The cover has already started");
 }
 

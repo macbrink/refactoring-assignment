@@ -6,8 +6,9 @@ namespace Insurify.Domain.Covers;
 public interface IPricingService
 {
     Money CalculatePremium(
-        Insurance insurance,
+        Guid insuranceId,
         Guid customerId,
         DateTime startDate,
+        Money insuredAmount,
         CancellationToken cancellationToken = default);
 }
