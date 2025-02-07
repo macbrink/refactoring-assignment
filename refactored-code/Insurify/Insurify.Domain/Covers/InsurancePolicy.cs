@@ -16,7 +16,7 @@ public class InsurancePolicy : Entity
         DateTime startDate, 
         Money fee,
         Money insuredAmount,
-        CoverStatus status  
+        InsurancePolicyStatus status  
         )
         : base(id)
     {
@@ -64,14 +64,14 @@ public class InsurancePolicy : Entity
 
     /// <summary>
     /// The status of the policy.
-    /// <seealso cref="CoverStatus"/>   
+    /// <seealso cref="InsurancePolicyStatus"/>   
     /// </summary>
-    public CoverStatus Status { get; private set; }
+    public InsurancePolicyStatus Status { get; private set; }
 
     /// <summary>
     /// Apply for an insurance policy.
     /// <para>
-    /// Creates the policy, and sets the status of the policy to <see cref="CoverStatus.AppliedFor"/>
+    /// Creates the policy, and sets the status of the policy to <see cref="InsurancePolicyStatus.AppliedFor"/>
     /// </para>
     /// <para>
     /// Raises a <see cref="InsurancePolicyAppliedDomainEvent"/> domain event.
@@ -103,7 +103,7 @@ public class InsurancePolicy : Entity
             startDate,
             fee,
             insuredAmount ,
-            CoverStatus.AppliedFor);
+            InsurancePolicyStatus.AppliedFor);
 
         cover.RaiseDomainEvent(new InsurancePolicyAppliedDomainEvent(cover.Id));
 
@@ -113,7 +113,7 @@ public class InsurancePolicy : Entity
     /// <summary>
     /// Confirm the insurance policy.
     /// <para>
-    /// Sets the status of the policy to <see cref="CoverStatus.Confirmed"/>
+    /// Sets the status of the policy to <see cref="InsurancePolicyStatus.Confirmed"/>
     /// </para>
     /// <para>
     /// Raises a <see cref="InsurancePolicyrConfirmedDomainEvent"/> domain event.
@@ -122,12 +122,12 @@ public class InsurancePolicy : Entity
     /// <returns>A <see cref="Result"/> object</returns>
     public Result Confirm()
     {
-        if(Status != CoverStatus.AppliedFor)
+        if(Status != InsurancePolicyStatus.AppliedFor)
         {
             return Result.Failure(CoverErrors.NotAppliedFor);
         }
 
-        Status = CoverStatus.Confirmed;       
+        Status = InsurancePolicyStatus.Confirmed;       
         RaiseDomainEvent(new InsurancePolicyrConfirmedDomainEvent(Id));
         return Result.Success();
     }
@@ -135,7 +135,7 @@ public class InsurancePolicy : Entity
     /// <summary>
     /// Reject the insurance policy.    
     /// <para>
-    /// Sets the status of the policy to <see cref="CoverStatus.Rejected"/>
+    /// Sets the status of the policy to <see cref="InsurancePolicyStatus.Rejected"/>
     /// </para>
     /// <para>
     /// Raises a <see cref="InsurancePolicyRejectedDomainEvent"/> domain event.
@@ -144,12 +144,12 @@ public class InsurancePolicy : Entity
     /// <returns>A <see cref="Result"/> object</returns>
     public Result Reject()
     {
-        if(Status != CoverStatus.AppliedFor)
+        if(Status != InsurancePolicyStatus.AppliedFor)
         {
             return Result.Failure(CoverErrors.NotAppliedFor);
         }
 
-        Status = CoverStatus.Rejected;
+        Status = InsurancePolicyStatus.Rejected;
 
         RaiseDomainEvent(new InsurancePolicyRejectedDomainEvent(Id));
 
@@ -159,36 +159,51 @@ public class InsurancePolicy : Entity
     /// <summary>
     /// Cancels the insurance policy
     /// <para>
+    /// Sets the policy status to <see cref="InsurancePolicyStatus.Cancelled"/>
+    /// </para>
+    /// <para>
     /// Raises a  <see cref="InsurancePolicyCancelledDomainEvent"/> domain event.
     /// </para>
+    /// <para>
+    /// Sets the policy end date to the cancellation date.
+    /// </para>
     /// </summary>
-    /// <param name="endTime"></param>
+    /// <param name="cancellationDate"></param>
     /// <returns></returns>
-    public Result Cancel(DateTime endTime)
+    public Result Cancel(DateTime cancellationDate)
     {
-        if (Status != CoverStatus.Confirmed)
+        if (Status != InsurancePolicyStatus.Confirmed)
         {
             return Result.Failure(CoverErrors.NotConfirmed);
         }
-        Status = CoverStatus.Cancelled;
-        EndDate = endTime;
+        Status = InsurancePolicyStatus.Cancelled;
+        EndDate = cancellationDate;
         RaiseDomainEvent(new InsurancePolicyCancelledDomainEvent(Id));
         return Result.Success();
     }
 
     /// <summary>
     /// Completes the insurance policy
+    /// <para>
+    /// Sets the policy status to <see cref="InsurancePolicyStatus.Completed"/>
+    /// </para>
+    /// <para>
+    /// Raises a  <see cref="InsurancePolicyCompletedDomainEvent"/> domain event.
+    /// </para>
+    /// <para>
+    /// Sets the policy end date to the complete date.
+    /// </para>
     /// </summary>
     /// <param name="endTime"></param>
     /// <returns></returns>
     public Result Complete(DateTime endTime)
     {
-        if (Status != CoverStatus.Confirmed)
+        if (Status != InsurancePolicyStatus.Confirmed)
         {
             return Result.Failure(CoverErrors.NotConfirmed);
         }
-        Status = CoverStatus.Completed;
-        EndDate = DateTime.Today;
+        Status = InsurancePolicyStatus.Completed;
+        EndDate = endTime;
         RaiseDomainEvent(new InsurancePolicyCompletedDomainEvent(Id));
         return Result.Success();
     }
