@@ -1,27 +1,27 @@
 ﻿using Insurify.Domain.Abstractions;
 
-namespace Insurify.Domain.Covers;
+namespace Insurify.Domain.InsurancePolicies;
 
-public class CoverErrors
+public class InsurancePolicyErrors
 {
     public static readonly Error NotFound = new(
         "InsurancePolicy.NotFound",
-        "The cover with the specified identifier was not found");
+        "The insurance policy with the specified identifier was not found");
 
     public static readonly Error Age = new(
         "InsurancePolicy.Age",
-        "The current customer's age is not allowed for this cover");
+        "The current customer's age is not allowed for this insurance policy");
 
     public static readonly Error NotAppliedFor = new(
         "InsurancePolicy.NotAppliedFor",
-        "The cover is not pending");
+        "The insurance policy is not pending");
 
     public static readonly Error NotConfirmed = new(
         "InsurancePolicy.NotReserved",
-        "The cover is not confirmed");
+        "The insurance policy is not confirmed");
 
     public static readonly Error AlreadyStarted = new(
         "InsurancePolicy.AlreadyStarted",
-        "The cover has already started");
+        "The insurance policy has already started");
 }
 

@@ -1,6 +1,6 @@
 ﻿using Insurify.Domain.Abstractions;
 
-namespace Insurify.Domain.Covers.Events;
+namespace Insurify.Domain.InsurancePolicies.Events;
 
 /// <summary>
 /// Event that is raised when an insurance policy is applied for.

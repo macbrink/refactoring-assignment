@@ -1,7 +1,7 @@
 ﻿using Insurify.Domain.Insurances;
 using Insurify.Domain.Shared;
 
-namespace Insurify.Domain.Covers;
+namespace Insurify.Domain.InsurancePolicies;
 
 public interface IPricingService
 {

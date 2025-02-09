@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Insurify.Domain.Covers;
+namespace Insurify.Domain.InsurancePolicies;
 
 /// <summary>
 /// Represents the status of a cover.

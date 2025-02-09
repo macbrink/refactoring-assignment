@@ -1,8 +1,8 @@
 ﻿using Insurify.Domain.Abstractions;
-using Insurify.Domain.Covers.Events;
+using Insurify.Domain.InsurancePolicies.Events;
 using Insurify.Domain.Shared;
 
-namespace Insurify.Domain.Covers;
+namespace Insurify.Domain.InsurancePolicies;
 
 /// <summary>
 /// Model representing an insurance policy.
@@ -10,13 +10,13 @@ namespace Insurify.Domain.Covers;
 public class InsurancePolicy : Entity
 {
     private InsurancePolicy(
-        Guid id, 
-        Guid insuranceId, 
-        Guid subscriberId, 
-        DateTime startDate, 
+        Guid id,
+        Guid insuranceId,
+        Guid subscriberId,
+        DateTime startDate,
         Money fee,
         Money insuredAmount,
-        InsurancePolicyStatus status  
+        InsurancePolicyStatus status
         )
         : base(id)
     {
@@ -102,7 +102,7 @@ public class InsurancePolicy : Entity
             subscriberId,
             startDate,
             fee,
-            insuredAmount ,
+            insuredAmount,
             InsurancePolicyStatus.AppliedFor);
 
         cover.RaiseDomainEvent(new InsurancePolicyAppliedDomainEvent(cover.Id));
@@ -127,7 +127,7 @@ public class InsurancePolicy : Entity
             return Result.Failure(CoverErrors.NotAppliedFor);
         }
 
-        Status = InsurancePolicyStatus.Confirmed;       
+        Status = InsurancePolicyStatus.Confirmed;
         RaiseDomainEvent(new InsurancePolicyrConfirmedDomainEvent(Id));
         return Result.Success();
     }
@@ -172,7 +172,7 @@ public class InsurancePolicy : Entity
     /// <returns></returns>
     public Result Cancel(DateTime cancellationDate)
     {
-        if (Status != InsurancePolicyStatus.Confirmed)
+        if(Status != InsurancePolicyStatus.Confirmed)
         {
             return Result.Failure(CoverErrors.NotConfirmed);
         }
@@ -198,7 +198,7 @@ public class InsurancePolicy : Entity
     /// <returns></returns>
     public Result Complete(DateTime endTime)
     {
-        if (Status != InsurancePolicyStatus.Confirmed)
+        if(Status != InsurancePolicyStatus.Confirmed)
         {
             return Result.Failure(CoverErrors.NotConfirmed);
         }
