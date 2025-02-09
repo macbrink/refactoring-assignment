@@ -82,7 +82,7 @@ public class InsurancePolicy : Entity
     /// <param name="startDate">The start date of the policy.</param>
     /// <param name="insuredAmount">The insured amount.</param>
     /// <param name="pricingService">The pricing service to calculate the fee</param>
-    /// <returns></returns>
+    /// <returns>An InsurancePolicy instance</returns>
     public static InsurancePolicy Apply(
         Guid insuranceId,
         Guid subscriberId,
@@ -124,7 +124,7 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.AppliedFor)
         {
-            return Result.Failure(CoverErrors.NotAppliedFor);
+            return Result.Failure(InsurancePolicyErrors.NotAppliedFor);
         }
 
         Status = InsurancePolicyStatus.Confirmed;
@@ -146,13 +146,11 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.AppliedFor)
         {
-            return Result.Failure(CoverErrors.NotAppliedFor);
+            return Result.Failure(InsurancePolicyErrors.NotAppliedFor);
         }
 
         Status = InsurancePolicyStatus.Rejected;
-
         RaiseDomainEvent(new InsurancePolicyRejectedDomainEvent(Id));
-
         return Result.Success();
     }
 
@@ -174,7 +172,7 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.Confirmed)
         {
-            return Result.Failure(CoverErrors.NotConfirmed);
+            return Result.Failure(InsurancePolicyErrors.NotConfirmed);
         }
         Status = InsurancePolicyStatus.Cancelled;
         EndDate = cancellationDate;
@@ -200,7 +198,7 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.Confirmed)
         {
-            return Result.Failure(CoverErrors.NotConfirmed);
+            return Result.Failure(InsurancePolicyErrors.NotConfirmed);
         }
         Status = InsurancePolicyStatus.Completed;
         EndDate = endTime;
