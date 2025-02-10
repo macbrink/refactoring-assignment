@@ -2,4 +2,8 @@
 
 namespace Insurify.Domain.InsurancePolicies.Events;
 
-public sealed record InsurancePolicyCompletedDomainEvent(Guid CoverId) : IDomainEvent;
+/// <summary>
+/// Domain event representing an insurance policy being completed
+/// </summary>
+/// <param name="InsurancePolicyId">The insurance policy Id</param>
+public sealed record InsurancePolicyCompletedDomainEvent(Guid InsurancePolicyId) : IDomainEvent;
