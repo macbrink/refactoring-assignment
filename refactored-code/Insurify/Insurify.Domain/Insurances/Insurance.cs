@@ -72,7 +72,7 @@ public sealed class Insurance : Entity
     /// Update the insurance description    
     /// </summary>
     /// <param name="description"></param>
-    /// <returns></returns>
+    /// <returns><see cref="Result"/></returns>
     public Result UpdateDescription(
         Description description)
     {
@@ -87,7 +87,7 @@ public sealed class Insurance : Entity
     /// </para>
     /// </summary>
     /// <param name="price"></param>
-    /// <returns></returns>
+    /// <returns><see cref="Result"/></returns>
     public Result UpdatePrice(
         Money price)
     {
