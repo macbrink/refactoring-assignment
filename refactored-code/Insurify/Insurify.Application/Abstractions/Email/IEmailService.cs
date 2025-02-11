@@ -1,4 +1,4 @@
-﻿namespace Insurify.Application.Email;
+﻿namespace Insurify.Application.Abstractions.Email;
 
 public interface IEmailService
 {

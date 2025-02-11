@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Insurify.Application.Data;
+namespace Insurify.Application.Abstractions.Data;
 
 public interface ISqlConnectionFactory
 {

@@ -1,5 +1,6 @@
 ﻿using Insurify.Domain.Abstractions;
 using Insurify.Domain.InsurancePolicies.Events;
+using Insurify.Domain.Insurances;
 using Insurify.Domain.Shared;
 
 namespace Insurify.Domain.InsurancePolicies;
@@ -167,7 +168,7 @@ public class InsurancePolicy : Entity
     /// </para>
     /// </summary>
     /// <param name="cancellationDate"></param>
-    /// <returns></returns>
+    /// <returns>>A <see cref="Result"/> object</returns>
     public Result Cancel(DateTime cancellationDate)
     {
         if(Status != InsurancePolicyStatus.Confirmed)
@@ -193,7 +194,7 @@ public class InsurancePolicy : Entity
     /// </para>
     /// </summary>
     /// <param name="endTime"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Result"/> object</returns>
     public Result Complete(DateTime endTime)
     {
         if(Status != InsurancePolicyStatus.Confirmed)
@@ -203,6 +204,25 @@ public class InsurancePolicy : Entity
         Status = InsurancePolicyStatus.Completed;
         EndDate = endTime;
         RaiseDomainEvent(new InsurancePolicyCompletedDomainEvent(Id));
+        return Result.Success();
+    }
+
+    /// <summary>
+    /// Updates the fee of the policy
+    /// </summary>
+    /// <param name="pricingService">The PricingService for the Insurance this policy belongs to</param>
+    /// <returns>A <see cref="Result"/> object</returns>
+    public Result UpdateFee(IPricingService pricingService)
+    {
+        if(Status != InsurancePolicyStatus.Confirmed)
+        {
+            return Result.Failure(InsurancePolicyErrors.NotConfirmed);
+        }
+        Fee = pricingService.CalculatePremium(
+            InsuranceId,
+            SubscriberId,
+            StartDate,
+            InsuredAmount);
         return Result.Success();
     }
 }

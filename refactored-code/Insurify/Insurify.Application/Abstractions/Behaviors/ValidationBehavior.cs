@@ -2,7 +2,7 @@
 using Insurify.Application.Exceptions;
 using MediatR;
 
-namespace Insurify.Application.Behaviors;
+namespace Insurify.Application.Abstractions.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
@@ -20,7 +20,7 @@ public class ValidationBehavior<TRequest, TResponse>
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        if (!_validators.Any())
+        if(!_validators.Any())
         {
             return await next();
         }
@@ -36,9 +36,9 @@ public class ValidationBehavior<TRequest, TResponse>
                 validationFailure.ErrorMessage))
             .ToList();
 
-        if (validationErrors.Any())
+        if(validationErrors.Any())
         {
-            throw new Exceptions.ValidationException(validationErrors);
+            throw new ValidationException(validationErrors);
         }
 
         return await next();
