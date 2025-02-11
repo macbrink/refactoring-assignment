@@ -1,4 +1,5 @@
-﻿using Insurify.Application.Abstractions.Messaging;
+﻿using FluentValidation;
+using Insurify.Application.Abstractions.Messaging;
 using Insurify.Application.Exceptions;
 using MediatR;
 
@@ -38,7 +39,7 @@ public class ValidationBehavior<TRequest, TResponse>
 
         if(validationErrors.Any())
         {
-            throw new ValidationException(validationErrors);
+            throw new Exceptions.ValidationException(validationErrors);
         }
 
         return await next();
