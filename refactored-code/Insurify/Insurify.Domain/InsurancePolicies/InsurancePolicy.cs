@@ -1,4 +1,5 @@
 ﻿using Insurify.Domain.Abstractions;
+using Insurify.Domain.Customers;
 using Insurify.Domain.InsurancePolicies.Events;
 using Insurify.Domain.Insurances;
 using Insurify.Domain.Shared;
@@ -70,45 +71,46 @@ public class InsurancePolicy : Entity
     public InsurancePolicyStatus Status { get; private set; }
 
     /// <summary>
-    /// Apply for an insurance policy.
+    /// ApplyFor for an insurance policy.
     /// <para>
     /// Creates the policy, and sets the status of the policy to <see cref="InsurancePolicyStatus.AppliedFor"/>
     /// </para>
     /// <para>
-    /// Raises a <see cref="InsurancePolicyAppliedDomainEvent"/> domain event.
+    /// Raises a <see cref="InsurancePolicyAppliedForDomainEvent"/> domain event.
     /// </para>
     /// </summary>
-    /// <param name="insuranceId">The Id of the insurance.</param>
-    /// <param name="subscriberId">The Id of the subscriber.</param>
+    /// <param name="insurance">The Id of the insurance.</param>
+    /// <param name="subscriber">The Id of the subscriber.</param>
     /// <param name="startDate">The start date of the policy.</param>
     /// <param name="insuredAmount">The insured amount.</param>
     /// <param name="pricingService">The pricing service to calculate the fee</param>
     /// <returns>An InsurancePolicy instance</returns>
-    public static InsurancePolicy Apply(
-        Guid insuranceId,
-        Guid subscriberId,
+    public static InsurancePolicy ApplyFor(
+        Insurance insurance,
+        Customer subscriber,
         DateTime startDate,
         Money insuredAmount,
         IPricingService pricingService)
     {
         Money fee = pricingService.CalculatePremium(
-            insuranceId,
-            subscriberId,
+            insurance,
+            subscriber,
             startDate,
-            insuredAmount);
+            insuredAmount
+            );
 
-        var cover = new InsurancePolicy(
+        var insurancePolicy = new InsurancePolicy(
             Guid.NewGuid(),
-            insuranceId,
-            subscriberId,
+            insurance.Id,
+            subscriber.Id,
             startDate,
             fee,
             insuredAmount,
             InsurancePolicyStatus.AppliedFor);
 
-        cover.RaiseDomainEvent(new InsurancePolicyAppliedDomainEvent(cover.Id));
+        insurancePolicy.RaiseDomainEvent(new InsurancePolicyAppliedForDomainEvent(insurancePolicy.Id));
 
-        return cover;
+        return insurancePolicy;
     }
 
     /// <summary>
@@ -125,7 +127,7 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.AppliedFor)
         {
-            return Result.Failure(InsurancePolicyErrors.NotAppliedFor);
+            return Result.Failure(InsurancePoliciesErrors.NotAppliedFor);
         }
 
         Status = InsurancePolicyStatus.Confirmed;
@@ -147,7 +149,7 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.AppliedFor)
         {
-            return Result.Failure(InsurancePolicyErrors.NotAppliedFor);
+            return Result.Failure(InsurancePoliciesErrors.NotAppliedFor);
         }
 
         Status = InsurancePolicyStatus.Rejected;
@@ -173,7 +175,7 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.Confirmed)
         {
-            return Result.Failure(InsurancePolicyErrors.NotConfirmed);
+            return Result.Failure(InsurancePoliciesErrors.NotConfirmed);
         }
         Status = InsurancePolicyStatus.Cancelled;
         EndDate = cancellationDate;
@@ -199,7 +201,7 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.Confirmed)
         {
-            return Result.Failure(InsurancePolicyErrors.NotConfirmed);
+            return Result.Failure(InsurancePoliciesErrors.NotConfirmed);
         }
         Status = InsurancePolicyStatus.Completed;
         EndDate = endTime;
@@ -216,7 +218,7 @@ public class InsurancePolicy : Entity
     {
         if(Status != InsurancePolicyStatus.Confirmed)
         {
-            return Result.Failure(InsurancePolicyErrors.NotConfirmed);
+            return Result.Failure(InsurancePoliciesErrors.NotConfirmed);
         }
         Fee = pricingService.CalculatePremium(
             InsuranceId,

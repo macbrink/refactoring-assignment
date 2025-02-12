@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a repository for insurance policies.
 /// </summary>
-public interface InsurancePolicyRepository
+public interface IInsurancePolicyRepository
 {
     /// <summary>
     /// Gets an insurance policy by its id.

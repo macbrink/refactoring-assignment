@@ -11,7 +11,7 @@ public interface ICustomerRepository
     /// <param name="id">Customer's Id</param>
     /// <param name="cancellationToken">a canncellation taken</param>
     /// <returns></returns>
-    Task<Customer> GetById(Guid id, CancellationToken cancellationToken = default);
+    Task<Customer> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Add a new customer

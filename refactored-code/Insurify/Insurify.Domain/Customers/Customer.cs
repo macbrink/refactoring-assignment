@@ -8,6 +8,8 @@ namespace Insurify.Domain.Customers;
 /// </summary>
 public sealed class Customer : Entity
 {
+    private Random radom = new Random();
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Customer"/> class.
     /// </summary>
@@ -28,6 +30,9 @@ public sealed class Customer : Entity
         LastName = lastName;
         BirthDate = birthDate;
         Email = email;
+
+        // Randomly assign a security certificate to keep class simle
+        HasSecurityCertificate = radom.Next(2) == 0;
     }
 
     /// <summary>
@@ -56,6 +61,16 @@ public sealed class Customer : Entity
     /// Gets the birth date of the customer.
     /// </summary>
     public DateOnly BirthDate { get; private set; } = DateOnly.MinValue;
+
+    /// <summary>
+    /// Gets the address of the customer.
+    /// </summary>
+    public Address Address { get; private set; } = default!;
+
+    /// <summary>
+    /// Gets the security certificate of the customer.
+    /// </summary>
+    public bool HasSecurityCertificate { get; private set; }
 
     /// <summary>
     /// Creates a new instance of the <see cref="Customer"/> class.

@@ -6,4 +6,4 @@ namespace Insurify.Domain.InsurancePolicies.Events;
 /// Event that is raised when an insurance policy is applied for.
 /// </summary>
 /// <param name="InsurancePolicyId">The id of the policy</param>
-public sealed record InsurancePolicyAppliedDomainEvent(Guid InsurancePolicyId) : IDomainEvent;
+public sealed record InsurancePolicyAppliedForDomainEvent(Guid InsurancePolicyId) : IDomainEvent;

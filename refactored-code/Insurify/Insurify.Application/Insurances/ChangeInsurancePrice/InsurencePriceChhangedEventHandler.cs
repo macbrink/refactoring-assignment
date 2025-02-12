@@ -8,12 +8,12 @@ namespace Insurify.Application.Insurances.ChangeInsurancePrice;
 internal sealed class InsurencePriceChhangedEventHandler : INotificationHandler<InsurancePriceChangedDomainEvent>
 {
     private readonly IInsuranceRepository _insuranceRepository;
-    private readonly InsurancePolicyRepository _insurancePolicyRepository;
+    private readonly IInsurancePolicyRepository _insurancePolicyRepository;
     private readonly IPricingService _pricingService;
 
     public InsurencePriceChhangedEventHandler(
         IInsuranceRepository insuranceRepository,
-        InsurancePolicyRepository insurancePolicyRepository,
+        IInsurancePolicyRepository insurancePolicyRepository,
         IPricingService pricingService
         )
     {

@@ -5,7 +5,7 @@ namespace Insurify.Domain.InsurancePolicies;
 /// <summary>
 /// Errors related to insurance policies.
 /// </summary>
-public class InsurancePolicyErrors
+public class InsurancePoliciesErrors
 {
     /// <summary>
     /// Represents an error when the insurance policy is not found.
@@ -13,13 +13,6 @@ public class InsurancePolicyErrors
     public static readonly Error NotFound = new(
         "InsurancePolicy.NotFound",
         "The insurance policy with the specified identifier was not found");
-
-    /// <summary>
-    /// Represents an error when the current customer's age is not allowed for this insurance policy.
-    /// </summary>
-    public static readonly Error Age = new(
-        "InsurancePolicy.Age",
-        "The current customer's age is not allowed for this insurance policy");
 
     /// <summary>
     /// Represents an error when the insurance policy is not pending.
@@ -41,5 +34,16 @@ public class InsurancePolicyErrors
     public static readonly Error AlreadyStarted = new(
         "InsurancePolicy.AlreadyStarted",
         "The insurance policy has already started");
+
+    /// <summary>
+    /// Represents an error when the customer is not elligible for the requested insurance policy.
+    /// </summary>
+    public static readonly Error NotEligible = new(
+        "InsurancePolicy.NotElligible",
+        "The customer is not elligible for the requested insurance policy");
+
+    public static readonly Error NotSaved = new(
+        "InsurancePolicy.NotSaves",
+        "The insurance policy is not saved to the data storage");
 }
 
