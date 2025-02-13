@@ -4,8 +4,17 @@ using Insurify.Domain.Insurances;
 using Insurify.Domain.Shared;
 
 namespace Insurify.Application.InsurancePolicies.PricingServices;
+
+/// <summary>
+/// A Pricing Service for Home Insurance.
+/// <para>
+/// <see cref="IPricingService"/> 
+/// </para>
+/// </summary>
 internal class HomeInsurancePricingService : IPricingService
 {
+    /// <summary>
+    /// Calculates the premium for a Home Insurance policy.
     public Money CalculatePremium(
         Insurance insurance,
         Customer customer,
