@@ -16,7 +16,8 @@ public sealed class Insurance : Entity
     /// <param name="name">The insurance name</param>
     /// <param name="description">Rhe insurance description</param>
     /// <param name="price">The insurance proce</param>
-    private Insurance(Guid id, 
+    private Insurance(
+        int id, 
         Name name, 
         Description description, 
         Money price)
@@ -55,16 +56,22 @@ public sealed class Insurance : Entity
     /// <summary>
     /// Create a new insurance
     /// </summary>
+    /// <param name="idCreator">Creator for a new Id</param>
     /// <param name="name">The insurance name</param>
     /// <param name="description">The insurance description</param>
     /// <param name="price">The isurance priice</param>
     /// <returns>An Insurance instance</returns>
     public static Result<Insurance> Create(
+        IIdCreator idCreator,
         Name name,
         Description description,
         Money price)
     {
-        var insurance = new Insurance(Guid.NewGuid(), name, description, price);
+        var insurance = new Insurance(
+            idCreator.CreateId().Result,
+            name, 
+            description, 
+            price);
         return Result.Success(insurance);
     }
 

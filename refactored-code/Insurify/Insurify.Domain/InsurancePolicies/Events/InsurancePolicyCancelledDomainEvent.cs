@@ -6,4 +6,4 @@ namespace Insurify.Domain.InsurancePolicies.Events;
 /// Domain event representing an insurance policy being cancelled
 /// </summary>
 /// <param name="InsurancePolicyId">The InsurancePolicy Id</param>
-public sealed record InsurancePolicyCancelledDomainEvent(Guid InsurancePolicyId) : IDomainEvent;
+public sealed record InsurancePolicyCancelledDomainEvent(int InsurancePolicyId) : IDomainEvent;

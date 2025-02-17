@@ -10,4 +10,4 @@ namespace Insurify.Domain.Insurances.Events;
 /// Event that is raised when the price of an insurance is changed.
 /// </summary>
 /// <param name="InsurancePolicyId">The id of the Insurance</param>
-public sealed record InsurancePriceChangedDomainEvent(Guid InsurancePolicyId) : IDomainEvent;
+public sealed record InsurancePriceChangedDomainEvent(int InsurancePolicyId) : IDomainEvent;

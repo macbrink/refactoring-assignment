@@ -6,4 +6,4 @@ namespace Insurify.Domain.Customers.Events;
 /// Domain event representing a customer being created
 /// </summary>
 /// <param name="CustomerId">The Customer's Id</param>
-public sealed record CustomerCreatedDomainEvent(Guid CustomerId) : IDomainEvent;
+public sealed record CustomerCreatedDomainEvent(int CustomerId) : IDomainEvent;

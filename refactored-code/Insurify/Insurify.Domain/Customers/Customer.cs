@@ -8,7 +8,7 @@ namespace Insurify.Domain.Customers;
 /// </summary>
 public sealed class Customer : Entity
 {
-    private Random radom = new Random();
+    private Random random = new Random();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Customer"/> class.
@@ -18,7 +18,7 @@ public sealed class Customer : Entity
     /// <param name="lastName">Customer's last name</param>
     /// <param name="email">Customer's email-address</param>
     /// <param name="birthDate">Customer's burth date</param>
-    private Customer(Guid id,
+    private Customer(int id,
         FirstName firstName,
         LastName lastName,
         DateOnly birthDate,
@@ -75,18 +75,25 @@ public sealed class Customer : Entity
     /// <summary>
     /// Creates a new instance of the <see cref="Customer"/> class.
     /// </summary>
+    /// <param name="idCreator">Creator for a new Id</param>
     /// <param name="firstName">Customer's first name</param>
     /// <param name="lastName">Customer's last name</param>
     /// <param name="email">Customer's last name</param>
     /// <param name="birthDate">Customer's burth date</param>
     /// <returns>Customer Instance</returns>
     public static Result<Customer> Create(
+        IIdCreator idCreator,
         FirstName firstName,
         LastName lastName,
         DateOnly birthDate,
         Email email)
     {
-        var customer = new Customer(Guid.NewGuid(), firstName, lastName, birthDate, email);
+        var customer = new Customer(
+            idCreator.CreateId().Result, 
+            firstName, 
+            lastName, 
+            birthDate, 
+            email);
         return Result.Success(customer);
     }
 

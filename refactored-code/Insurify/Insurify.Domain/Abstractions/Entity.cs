@@ -5,13 +5,13 @@
 /// </summary>
 public abstract class Entity
 {
-    private readonly List<IDomainEvent> _domainEvents = new();
+    private readonly List<IDomainEvent> _domainEvents = [];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Entity"/> class.
     /// </summary>
     /// <param name="id">The id for this Entity</param>
-    protected Entity(Guid id)
+    protected Entity(int id)
     {
         Id = id;
     }
@@ -26,7 +26,15 @@ public abstract class Entity
     /// <summary>
     /// Gets the id for this Entity.
     /// </summary>
-    public Guid Id { get; init; }
+    public int Id { get; init; }
+
+
+    /// <summary>
+    /// Wether the entity is active or not.
+    /// <para>
+    /// Use this property to mark an entity for soft delete.
+    /// </para>
+    public bool IsActive { get; private set; } = true;
 
     /// <summary>
     /// Gets the domain events.

@@ -11,7 +11,7 @@ public interface IInsuranceRepository
     /// <param name="id">The insurance id</param>
     /// <param name="cancellationToken">a CancellationToken</param>
     /// <returns>Insurance instance</returns>
-    Task<Insurance> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<Insurance> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Adds an insurance to the repository.

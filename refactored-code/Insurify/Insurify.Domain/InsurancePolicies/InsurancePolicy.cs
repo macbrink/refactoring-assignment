@@ -12,9 +12,9 @@ namespace Insurify.Domain.InsurancePolicies;
 public class InsurancePolicy : Entity
 {
     private InsurancePolicy(
-        Guid id,
-        Guid insuranceId,
-        Guid subscriberId,
+        int id,
+        int insuranceId,
+        int subscriberId,
         DateTime startDate,
         Money fee,
         Money insuredAmount,
@@ -37,12 +37,12 @@ public class InsurancePolicy : Entity
     /// <summary>
     /// The insurance id.
     /// </summary>
-    public Guid InsuranceId { get; private set; }
+    public int InsuranceId { get; private set; }
 
     /// <summary>
     /// The subscriber id.
     /// </summary>
-    public Guid SubscriberId { get; private set; }
+    public int SubscriberId { get; private set; }
 
     /// <summary>
     /// The start date of the policy.
@@ -79,6 +79,7 @@ public class InsurancePolicy : Entity
     /// Raises a <see cref="InsurancePolicyAppliedForDomainEvent"/> domain event.
     /// </para>
     /// </summary>
+    /// <param name="idCreator">Creator for a new Id</param>
     /// <param name="insurance">The Id of the insurance.</param>
     /// <param name="subscriber">The Id of the subscriber.</param>
     /// <param name="startDate">The start date of the policy.</param>
@@ -86,6 +87,7 @@ public class InsurancePolicy : Entity
     /// <param name="pricingService">The pricing service to calculate the fee</param>
     /// <returns>An InsurancePolicy instance</returns>
     public static InsurancePolicy ApplyFor(
+        IIdCreator idCreator,
         Insurance insurance,
         Customer subscriber,
         DateTime startDate,
@@ -100,7 +102,7 @@ public class InsurancePolicy : Entity
             );
 
         var insurancePolicy = new InsurancePolicy(
-            Guid.NewGuid(),
+            idCreator.CreateId().Result,
             insurance.Id,
             subscriber.Id,
             startDate,

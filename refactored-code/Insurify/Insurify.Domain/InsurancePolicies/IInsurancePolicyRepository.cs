@@ -11,7 +11,7 @@ public interface IInsurancePolicyRepository
     /// <param name="id">The insurance poicy id.</param>
     /// <param name="cancellationToken">a CancellationToken.</param>
     /// <returns>InsurancePolicy object</returns>
-    Task<InsurancePolicy> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
+    Task<InsurancePolicy> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Gets all insurance policies by Insurance Id.
@@ -19,5 +19,5 @@ public interface IInsurancePolicyRepository
     /// <param name="insuranceId">The id of an insurance.</param>
     /// <param name="cancellationToken">a CancellationToken</param>
     /// <returns></returns>
-    Task<ICollection<InsurancePolicy>> GetPoliciesByInsuranceId(Guid insuranceId, CancellationToken cancellationToken = default);
+    Task<ICollection<InsurancePolicy>> GetPoliciesByInsuranceId(int insuranceId, CancellationToken cancellationToken = default);
 }
