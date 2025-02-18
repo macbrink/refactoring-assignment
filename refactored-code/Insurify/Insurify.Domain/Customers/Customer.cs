@@ -31,8 +31,10 @@ public sealed class Customer : Entity
         BirthDate = birthDate;
         Email = email;
 
+        Status = CustomerStatus.Created;
+
         // Randomly assign a security certificate to keep class simle
-        HasSecurityCertificate = radom.Next(2) == 0;
+        HasSecurityCertificate = random.Next(2) == 0;
     }
 
     /// <summary>
@@ -71,6 +73,8 @@ public sealed class Customer : Entity
     /// Gets the security certificate of the customer.
     /// </summary>
     public bool HasSecurityCertificate { get; private set; }
+
+    public CustomerStatus Status { get; private set; } 
 
     /// <summary>
     /// Creates a new instance of the <see cref="Customer"/> class.

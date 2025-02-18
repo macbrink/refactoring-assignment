@@ -8,7 +8,7 @@ namespace Insurify.Domain.InsurancePolicies;
 public enum InsurancePolicyStatus
 {
     /// <summary>
-    /// The cover has been applied for.
+    /// The policy has been applied for.
     /// </summary>
     AppliedFor = 1,
 

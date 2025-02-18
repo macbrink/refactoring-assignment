@@ -11,6 +11,16 @@ namespace Insurify.Domain.InsurancePolicies;
 /// </summary>
 public class InsurancePolicy : Entity
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="insuranceId"></param>
+    /// <param name="subscriberId"></param>
+    /// <param name="startDate"></param>
+    /// <param name="fee"></param>
+    /// <param name="insuredAmount"></param>
+    /// <param name="status"></param>
     private InsurancePolicy(
         int id,
         int insuranceId,
@@ -78,8 +88,8 @@ public class InsurancePolicy : Entity
     /// <para>
     /// Raises a <see cref="InsurancePolicyAppliedForDomainEvent"/> domain event.
     /// </para>
-    /// </summary>
-    /// <param name="idCreator">Creator for a new Id</param>
+    /// </summary>    /// 
+    /// <param name="id">The Id for this InsurancePolicy</param>
     /// <param name="insurance">The Id of the insurance.</param>
     /// <param name="subscriber">The Id of the subscriber.</param>
     /// <param name="startDate">The start date of the policy.</param>
@@ -87,13 +97,13 @@ public class InsurancePolicy : Entity
     /// <param name="pricingService">The pricing service to calculate the fee</param>
     /// <returns>An InsurancePolicy instance</returns>
     public static InsurancePolicy ApplyFor(
-        IIdCreator idCreator,
+        int id,
         Insurance insurance,
         Customer subscriber,
         DateTime startDate,
         Money insuredAmount,
         IPricingService pricingService)
-    {
+    { 
         Money fee = pricingService.CalculatePremium(
             insurance,
             subscriber,
@@ -102,13 +112,14 @@ public class InsurancePolicy : Entity
             );
 
         var insurancePolicy = new InsurancePolicy(
-            idCreator.CreateId().Result,
+            id,
             insurance.Id,
             subscriber.Id,
             startDate,
             fee,
             insuredAmount,
             InsurancePolicyStatus.AppliedFor);
+
 
         insurancePolicy.RaiseDomainEvent(new InsurancePolicyAppliedForDomainEvent(insurancePolicy.Id));
 

@@ -45,5 +45,9 @@ public class InsurancePoliciesErrors
     public static readonly Error NotSaved = new(
         "InsurancePolicy.NotSaves",
         "The insurance policy is not saved to the data storage");
+
+    public static Error CustomerNotActive = new(
+        "InsurancePolicy.CustomerNotActive",
+        "The customer is not active");
 }
 
