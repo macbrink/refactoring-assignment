@@ -21,4 +21,9 @@ public enum CustomerStatus
     /// The customer has been rejected.
     /// </summary>
     Rejected = 3,
+
+    /// <summary>
+    /// The customer has been archived.
+    /// </summary>
+    Archived = 4
 }
