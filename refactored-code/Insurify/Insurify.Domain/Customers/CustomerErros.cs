@@ -1,4 +1,6 @@
-﻿namespace Insurify.Domain.Customers;
+﻿using Insurify.Domain.Abstractions;
+
+namespace Insurify.Domain.Customers;
 
 /// <summary>
 /// Represents errors that can occur with customers.

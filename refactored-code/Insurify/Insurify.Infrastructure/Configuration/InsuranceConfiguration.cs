@@ -5,11 +5,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Insurify.Infrastructure.Configuration;
 
-public sealed class InsuranceConfiguration : IEntityTypeConfiguration<Insurance>
-{   
+/// <summary>
+/// Configuration for the Insurance entity.
+/// </summary>
+internal sealed class InsuranceConfiguration : IEntityTypeConfiguration<Insurance>
+{
+    /// <summary>
+    /// Configure the Insurance entity.
+    /// </summary>
+    /// <param name="builder">EF EntityTypeBuilder</param>
     public void Configure(EntityTypeBuilder<Insurance> builder)
     {
-        builder.ToTable("Insurances");
+        builder.ToTable("t-insurances");
 
         builder.HasKey(insurance => insurance.Id);
 

@@ -12,7 +12,7 @@ public sealed class Insurance : Entity
     /// <summary>
     /// Constructor for insurance
     /// </summary>
-        IIdCreator idCreator,
+    /// <param name="idCreator">Creator for a new Id</param>
     /// <param name="name">The insurance name</param>
     /// <param name="description">Rhe insurance description</param>
     /// <param name="price">The insurance proce</param>

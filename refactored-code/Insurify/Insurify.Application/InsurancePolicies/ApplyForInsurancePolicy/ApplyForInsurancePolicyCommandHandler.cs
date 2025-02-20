@@ -1,12 +1,12 @@
 ﻿using Insurify.Application.Exceptions;
-using Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
+using Insurify.Application.InsurancePolicies.ElligibilityCheckers;
 using Insurify.Application.InsurancePolicies.PricingServices;
 using Insurify.Domain.Abstractions;
 using Insurify.Domain.Customers;
 using Insurify.Domain.InsurancePolicies;
 using Insurify.Domain.Insurances;
 
-namespace Insurify.Application.InsurancePolicies.ElligibilityCheckers;
+namespace Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
 
 /// <summary>
 /// Handler for the <see cref="cref="ApplyForInsurancePolicyCommand" />
@@ -45,13 +45,13 @@ public class ApplyForInsurancePolicyCommandHandler
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     public async Task<Result<Guid>> HandleAsync(
-        ApplyForInsurancePolicyCommand command, 
-        Result result, 
+        ApplyForInsurancePolicyCommand command,
+        Result result,
         CancellationToken cancellationToken = default)
     {
         var customer = await _customerRepository.GetByIdAsync(command.SubscriberId, cancellationToken);
         var insurance = await _insuranceRepository.GetByIdAsync(command.InsuranceId, cancellationToken);
-        
+
         if(insurance is null)
         {
             return Result.Failure<Guid>(InsurancesErrors.NotFound);
@@ -64,11 +64,11 @@ public class ApplyForInsurancePolicyCommandHandler
 
         var insuranceElligibilityChecker = InsuranceElligibilityCheckerFactory.GetElligibilityChecker(insurance);
 
-        if((! insuranceElligibilityChecker.IsEligible(
-            insurance, 
-            customer, 
-            command.StartDate, 
-            command.InsuredAmount))
+        if(!insuranceElligibilityChecker.IsEligible(
+            insurance,
+            customer,
+            command.StartDate,
+            command.InsuredAmount)
         {
             return Result.Failure<Guid>(InsurancePoliciesErrors.NotEligible);
         }
