@@ -12,16 +12,16 @@ public sealed class Insurance : Entity
     /// <summary>
     /// Constructor for insurance
     /// </summary>
-    /// <param name="id">The insurance id</param>
+        IIdCreator idCreator,
     /// <param name="name">The insurance name</param>
     /// <param name="description">Rhe insurance description</param>
     /// <param name="price">The insurance proce</param>
     private Insurance(
-        int id, 
+        IIdCreator idCreator,
         Name name, 
         Description description, 
         Money price)
-        : base(id)
+        : base(idCreator)
     {
         Name = name;
         Description = description;

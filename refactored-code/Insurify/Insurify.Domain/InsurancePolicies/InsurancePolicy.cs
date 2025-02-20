@@ -12,9 +12,9 @@ namespace Insurify.Domain.InsurancePolicies;
 public class InsurancePolicy : Entity
 {
     /// <summary>
-    /// 
+    /// Constructor for an InsurancePolicy
     /// </summary>
-    /// <param name="id"></param>
+    /// <param name="idCreator">Creator for a new Id</param>
     /// <param name="insuranceId"></param>
     /// <param name="subscriberId"></param>
     /// <param name="startDate"></param>
@@ -22,7 +22,7 @@ public class InsurancePolicy : Entity
     /// <param name="insuredAmount"></param>
     /// <param name="status"></param>
     private InsurancePolicy(
-        int id,
+        IIdCreator idCreator,
         int insuranceId,
         int subscriberId,
         DateTime startDate,
@@ -30,7 +30,7 @@ public class InsurancePolicy : Entity
         Money insuredAmount,
         InsurancePolicyStatus status
         )
-        : base(id)
+        : base(idCreator)
     {
         InsuranceId = insuranceId;
         SubscriberId = subscriberId;
@@ -88,8 +88,8 @@ public class InsurancePolicy : Entity
     /// <para>
     /// Raises a <see cref="InsurancePolicyAppliedForDomainEvent"/> domain event.
     /// </para>
-    /// </summary>    /// 
-    /// <param name="id">The Id for this InsurancePolicy</param>
+    /// </summary>    
+    /// <param name="idCreator">Creator for a new Id</param>
     /// <param name="insurance">The Id of the insurance.</param>
     /// <param name="subscriber">The Id of the subscriber.</param>
     /// <param name="startDate">The start date of the policy.</param>
@@ -97,7 +97,7 @@ public class InsurancePolicy : Entity
     /// <param name="pricingService">The pricing service to calculate the fee</param>
     /// <returns>An InsurancePolicy instance</returns>
     public static InsurancePolicy ApplyFor(
-        int id,
+        IIdCreator idCreator,
         Insurance insurance,
         Customer subscriber,
         DateTime startDate,
@@ -112,7 +112,7 @@ public class InsurancePolicy : Entity
             );
 
         var insurancePolicy = new InsurancePolicy(
-            id,
+            idCreator,
             insurance.Id,
             subscriber.Id,
             startDate,

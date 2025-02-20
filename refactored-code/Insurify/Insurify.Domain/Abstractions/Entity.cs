@@ -10,10 +10,10 @@ public abstract class Entity
     /// <summary>
     /// Initializes a new instance of the <see cref="Entity"/> class.
     /// </summary>
-    /// <param name="id">The id for this Entity</param>
-    protected Entity(int id)
+    /// <param name="idCreator">The external Id Creator for all entities</param>
+    protected Entity(IIdCreator idCreator)
     {
-        Id = id;
+        Id = idCreator.CreateId();
     }
 
     /// <summary>

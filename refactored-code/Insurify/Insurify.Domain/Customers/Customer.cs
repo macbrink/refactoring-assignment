@@ -13,18 +13,18 @@ public sealed class Customer : Entity
     /// <summary>
     /// Initializes a new instance of the <see cref="Customer"/> class.
     /// </summary>
-    /// <param name="id">The Id for the Customer</param>
+    /// <param name="idCreator">The   external Creator for the Id</param>
     /// <param name="firstName">Customer's first name</param>
     /// <param name="lastName">Customer's last name</param>
     /// <param name="email">Customer's email-address</param>
     /// <param name="birthDate">Customer's burth date</param>
-    private Customer(int id,
+    private Customer(IIdCreator idCreator,
         FirstName firstName,
         LastName lastName,
         DateOnly birthDate,
         Email email
         )
-        : base(id)
+        : base(idCreator)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -34,6 +34,7 @@ public sealed class Customer : Entity
         Status = CustomerStatus.Created;
 
         // Randomly assign a security certificate to keep class simle
+        // For real-world scenario, this should be handled by a service
         HasSecurityCertificate = random.Next(2) == 0;
     }
 
@@ -93,7 +94,7 @@ public sealed class Customer : Entity
         Email email)
     {
         var customer = new Customer(
-            idCreator.CreateId().Result, 
+            idCreator, 
             firstName, 
             lastName, 
             birthDate, 

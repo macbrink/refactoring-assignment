@@ -5,5 +5,9 @@
 /// </summary>
 public interface IIdCreator
 {
-    Task<int> CreateId();
+    /// <summary>
+    /// Creates a new Id.
+    /// </summary>
+    /// <returns>int Id</returns>
+    int CreateId();
 }
