@@ -66,7 +66,7 @@ public class ApplyForInsurancePolicyCommandHandler
 
         if(insurance is null)
         {
-            return Result.Failure<Guid>(InsurancesErrors.NotFound);
+            return Result.Failure<int>(InsurancesErrors.NotFound);
         }
 
         if(customer is null)

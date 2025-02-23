@@ -5,17 +5,34 @@ using MediatR;
 
 namespace Insurify.Application.Abstractions.Behaviors;
 
+/// <summary>
+/// Pipeline behavior to validate the request.
+/// </summary>
+/// <typeparam name="TRequest">Requst type</typeparam>
+/// <typeparam name="TResponse">Reponse type</typeparam>
 public class ValidationBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IBaseCommand
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
+    /// <summary>
+    /// Constructor for the behavior.
+    /// </summary>
+    /// <param name="validators">The validators passed</param>
     public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
     {
         _validators = validators;
     }
 
+    /// <summary>
+    /// Handles the request.
+    /// </summary>
+    /// <param name="request">The request</param>
+    /// <param name="next">NThe next validator</param>
+    /// <param name="cancellationToken">a Cancellationtaken</param>
+    /// <returns>A Repsonse</returns>
+    /// <exception cref="Exceptions.ValidationException"></exception>
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,

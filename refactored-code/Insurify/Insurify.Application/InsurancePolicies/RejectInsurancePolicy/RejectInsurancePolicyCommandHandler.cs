@@ -25,6 +25,12 @@ public class RejectInsurancePolicyCommandHandler : ICommandHandler<RejectInsuran
         _unitOfWork = unitOfWork;
     }
 
+    /// <summary>
+    /// Handles the RejectInsurancePolicyCommand.
+    /// </summary>
+    /// <param name="command">The command</param>
+    /// <param name="cancellationToken">a CancellationToken</param>
+    /// <returns><see cref="Result"/></returns>
     public async Task<Result> Handle(
         RejectInsurancePolicyCommand command, 
         CancellationToken cancellationToken)
@@ -47,6 +53,5 @@ public class RejectInsurancePolicyCommandHandler : ICommandHandler<RejectInsuran
 
         return Result.Success();
     }
-{
 }
 

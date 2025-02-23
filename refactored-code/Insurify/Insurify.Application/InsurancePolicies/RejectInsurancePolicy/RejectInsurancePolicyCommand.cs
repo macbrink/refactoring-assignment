@@ -6,4 +6,4 @@ namespace Insurify.Application.InsurancePolicies.RejectInsurancePolicy;
 /// Command to reject an insurance policy.
 /// </summary>
 /// <param name="InsurancePolicyId">The Id for the Insurancepolicy to reject</param>
-public sealed record RejectInsurancePolicyCommand(Guid InsurancePolicyId) : ICommand;
+public sealed record RejectInsurancePolicyCommand(int InsurancePolicyId) : ICommand;
