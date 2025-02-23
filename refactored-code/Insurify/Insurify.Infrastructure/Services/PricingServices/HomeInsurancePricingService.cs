@@ -3,7 +3,7 @@ using Insurify.Domain.InsurancePolicies;
 using Insurify.Domain.Insurances;
 using Insurify.Domain.Shared;
 
-namespace Insurify.Application.InsurancePolicies.PricingServices;
+namespace Insurify.Infrastructure.Services.PricingServices;
 
 /// <summary>
 /// A Pricing Service for Home Insurance.

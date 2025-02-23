@@ -7,7 +7,7 @@ namespace Insurify.Domain.InsurancePolicies;
 /// <summary>
 /// Interface for a Service for checking insurance policy eligibility.
 /// </summary>
-public interface IInsuranceEligibilityChecker
+public interface IEligibilityCheckerFactory
 {
     /// <summary>
     /// Checks if a customer is eligible for an insurance policy.

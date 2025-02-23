@@ -1,5 +1,4 @@
 ﻿using Insurify.Domain.Abstractions;
-using Insurify.Domain.Insurances.Events;
 using Insurify.Domain.Shared;
 
 namespace Insurify.Domain.Insurances;
@@ -68,7 +67,7 @@ public sealed class Insurance : Entity
         Money price)
     {
         var insurance = new Insurance(
-            idCreator.CreateId().Result,
+            idCreator,
             name, 
             description, 
             price);
@@ -84,22 +83,6 @@ public sealed class Insurance : Entity
         Description description)
     {
         Description = description;
-        return Result.Success();
-    }
-
-    /// <summary>
-    /// Update the insurance price
-    /// <para>
-    /// aises a <see cref="InsurancePriceChangedDomainEvent"/> domain event.
-    /// </para>
-    /// </summary>
-    /// <param name="price"></param>
-    /// <returns><see cref="Result"/></returns>
-    public Result UpdatePrice(
-        Money price)
-    {
-        Price = price;
-        RaiseDomainEvent(new InsurancePriceChangedDomainEvent(Id));
         return Result.Success();
     }
 }

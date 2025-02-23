@@ -20,4 +20,10 @@ public interface IInsurancePolicyRepository
     /// <param name="cancellationToken">a CancellationToken</param>
     /// <returns></returns>
     Task<ICollection<InsurancePolicy>> GetPoliciesByInsuranceId(int insuranceId, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Adds an insurance policy to the repository.
+    /// </summary>
+    /// <param name="insurancePolicy">an InsurancePolicy instance</param>
+    void Add(InsurancePolicy insurancePolicy);
 }

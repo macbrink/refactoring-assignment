@@ -221,34 +221,5 @@ public class InsurancePolicy : Entity
         RaiseDomainEvent(new InsurancePolicyCompletedDomainEvent(Id));
         return Result.Success();
     }
-
-    /// <summary>
-    /// Updates the fee of the policy
-    /// </summary>
-    /// <param name="pricingService">The PricingService for the Insurance this policy belongs to</param>
-    /// <param name="insurance">The insurance this policy belongs to</param>
-    /// <param name="subscriber">The subscriber of the policy</param>
-    /// <param name="startDate">The start date of the policy</param>
-    /// <param name="insuredAmount">The insured amount</param>
-    /// <returns>A <see cref="Result"/> object</returns>
-    public Result UpdateFee(
-        IPricingService pricingService, 
-        Insurance insurance, 
-        Customer subscriber,
-        DateTime startDate,
-        Money insuredAmount
-        )
-    {
-        if(Status != InsurancePolicyStatus.Confirmed)
-        {
-            return Result.Failure(InsurancePoliciesErrors.NotConfirmed);
-        }
-        Fee = pricingService.CalculatePremium(
-            insurance,
-            subscriber,
-            startDate,
-            insuredAmount);
-        return Result.Success();
-    }
 }
 

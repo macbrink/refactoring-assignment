@@ -11,8 +11,8 @@ namespace Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
 /// <param name="StartDate">Start date for this policy</param>
 /// <param name="InsuredAmount">The insured amount on this policy</param>
 public record ApplyForInsurancePolicyCommand(
-    Guid InsuranceId,
-    Guid SubscriberId,
+    int InsuranceId,
+    int SubscriberId,
     DateTime StartDate,
     Money InsuredAmount) : ICommand<Guid>;
  

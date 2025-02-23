@@ -4,7 +4,7 @@ using Insurify.Domain.InsurancePolicies;
 using Insurify.Domain.Insurances;
 using Insurify.Domain.Shared;
 
-namespace Insurify.Application.InsurancePolicies.ElligibilityCheckers;
+namespace Insurify.Infrastructure.Services.ElligibilityServices;
 
 /// <summary>
 /// Checker for home insurance eligibility.
@@ -12,15 +12,15 @@ namespace Insurify.Application.InsurancePolicies.ElligibilityCheckers;
 /// A customer is elligible for home insurance if they are 18 years of older.
 /// </para>
 /// </summary>
-internal class HomeInsuranceEligibilityChecker : IInsuranceEligibilityChecker
+internal class HomeInsuranceEligibilityChecker : IEligibilityCheckerFactory
 {
     private const int ElligibilityAge = 18;
 
     public bool IsEligible(
-        Insurance insurance, 
-        Customer customer, 
-        DateTime startDate, 
-        Money insuredAmount, 
+        Insurance insurance,
+        Customer customer,
+        DateTime startDate,
+        Money insuredAmount,
         CancellationToken cancellationToken = default)
     {
         var age = customer.BirthDate.CalculateAge();

@@ -1,6 +1,6 @@
-﻿using Insurify.Application.Exceptions;
-using Insurify.Application.InsurancePolicies.ElligibilityCheckers;
-using Insurify.Application.InsurancePolicies.PricingServices;
+﻿using Insurify.Application.Abstractions.Elligibility;
+using Insurify.Application.Abstractions.Pricing;
+using Insurify.Application.Exceptions;
 using Insurify.Domain.Abstractions;
 using Insurify.Domain.Customers;
 using Insurify.Domain.InsurancePolicies;
@@ -9,7 +9,7 @@ using Insurify.Domain.Insurances;
 namespace Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
 
 /// <summary>
-/// Handler for the <see cref="cref="ApplyForInsurancePolicyCommand" />
+/// Handler for the <see cref="ApplyForInsurancePolicyCommand" />
 /// </summary>
 public class ApplyForInsurancePolicyCommandHandler
 {
@@ -17,6 +17,9 @@ public class ApplyForInsurancePolicyCommandHandler
     private readonly IInsuranceRepository _insuranceRepository;
     private readonly IInsurancePolicyRepository _insurancePolicyRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IElligibiltyCheckerFactory _eligibilityCheckerFactory;
+    private readonly IPricingServiceFactory _pricingServicesFactory;
+    private readonly IIdCreator _idCreator;
 
     /// <summary>
     /// Constructor for the handler
@@ -25,16 +28,25 @@ public class ApplyForInsurancePolicyCommandHandler
     /// <param name="insuranceRepository">IInsuranceRepository instance</param>
     /// <param name="insurancePolicyRepository">IInsurancePolicyRepository instance</param>
     /// <param name="unitOfWork">IUnitOfWork instance</param>
+    /// <param name="eligibilityCheckerFactory">IInsuranceEligibilityChecker instance</param>
+    /// <param name="pricingServiceFactory">IPricingServiceFactory instance</param>
+    /// <param name="idCreator">IIdCreator instance</param>
     public ApplyForInsurancePolicyCommandHandler(
         ICustomerRepository customerRepository,
         IInsuranceRepository insuranceRepository,
         IInsurancePolicyRepository insurancePolicyRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IElligibiltyCheckerFactory eligibilityCheckerFactory,
+        IPricingServiceFactory pricingServiceFactory,
+        IIdCreator idCreator)
     {
         _customerRepository = customerRepository;
         _insuranceRepository = insuranceRepository;
         _insurancePolicyRepository = insurancePolicyRepository;
         _unitOfWork = unitOfWork;
+        _eligibilityCheckerFactory = eligibilityCheckerFactory;
+        _pricingServicesFactory = pricingServiceFactory;
+        _idCreator = idCreator;
     }
 
     /// <summary>
@@ -44,7 +56,7 @@ public class ApplyForInsurancePolicyCommandHandler
     /// <param name="result"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<Result<Guid>> HandleAsync(
+    public async Task<Result<int>> HandleAsync(
         ApplyForInsurancePolicyCommand command,
         Result result,
         CancellationToken cancellationToken = default)
@@ -62,22 +74,23 @@ public class ApplyForInsurancePolicyCommandHandler
             return default!;
         }
 
-        var insuranceElligibilityChecker = InsuranceElligibilityCheckerFactory.GetElligibilityChecker(insurance);
+        var insuranceElligibilityChecker = _eligibilityCheckerFactory.GetEligibilityChecker(insurance);
 
         if(!insuranceElligibilityChecker.IsEligible(
             insurance,
             customer,
             command.StartDate,
-            command.InsuredAmount)
+            command.InsuredAmount))
         {
-            return Result.Failure<Guid>(InsurancePoliciesErrors.NotEligible);
+            return Result.Failure<int>(InsurancePoliciesErrors.NotEligible);
         }
 
-        var pricingService = PricingServicesFactory.GetPricingService(insurance);
+        var pricingService =_pricingServicesFactory.GetPricingService(insurance);
 
         try
         {
             var insurancePolicy = InsurancePolicy.ApplyFor(
+                _idCreator,
                 insurance,
                 customer,
                 command.StartDate,
@@ -92,7 +105,7 @@ public class ApplyForInsurancePolicyCommandHandler
         }
         catch(ConcurrencyException)
         {
-            return Result.Failure<Guid>(InsurancePoliciesErrors.NotSaved);
+            return Result.Failure<int>(InsurancePoliciesErrors.NotSaved);
         }
 
 
