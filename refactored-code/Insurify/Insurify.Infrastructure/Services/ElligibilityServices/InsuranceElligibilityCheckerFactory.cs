@@ -14,7 +14,7 @@ internal class InsuranceElligibilityCheckerFactory : IElligibiltyCheckerFactory
     /// </summary>
     /// <param name="insurance"><see cref="Insurance"/></param>
     /// <returns>an object that implements <see cref="IEligibilityCheckerFactory"/></returns>
-    public IEligibilityCheckerFactory GetEligibilityChecker(Insurance insurance)
+    public IInsuranceEligibilityChecker GetEligibilityChecker(Insurance insurance)
     {
         return new HomeInsuranceEligibilityChecker();
     }

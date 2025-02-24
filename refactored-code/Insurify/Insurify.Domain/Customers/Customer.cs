@@ -8,7 +8,7 @@ namespace Insurify.Domain.Customers;
 /// </summary>
 public sealed class Customer : Entity
 {
-    private Random random = new Random();
+    private readonly Random random = new Random();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Customer"/> class.
@@ -75,6 +75,9 @@ public sealed class Customer : Entity
     /// </summary>
     public bool HasSecurityCertificate { get; private set; }
 
+    /// <summary>
+    /// Gets the status of the customer.
+    /// </summary>
     public CustomerStatus Status { get; private set; } 
 
     /// <summary>
