@@ -28,7 +28,7 @@ public class ApplyForInsurancePolicyCommandHandler
     /// <param name="insuranceRepository">IInsuranceRepository instance</param>
     /// <param name="insurancePolicyRepository">IInsurancePolicyRepository instance</param>
     /// <param name="unitOfWork">IUnitOfWork instance</param>
-    /// <param name="eligibilityCheckerFactory">IInsuranceEligibilityChecker instance</param>
+    /// <param name="eligibilityCheckerFactory">IEligibilityChecker instance</param>
     /// <param name="pricingServiceFactory">IPricingServiceFactory instance</param>
     /// <param name="idCreator">IIdCreator instance</param>
     public ApplyForInsurancePolicyCommandHandler(
@@ -36,11 +36,13 @@ public class ApplyForInsurancePolicyCommandHandler
         IInsuranceRepository insuranceRepository,
         IInsurancePolicyRepository insurancePolicyRepository,
         IUnitOfWork unitOfWork,
+        IElligibiltyCheckerFactory eligibilityCheckerFactory,
         IPricingServiceFactory pricingServiceFactory,
         IIdCreator idCreator)
     {
         _customerRepository = customerRepository;
         _insuranceRepository = insuranceRepository;
+        _eligibilityCheckerFactory = eligibilityCheckerFactory;
         _insurancePolicyRepository = insurancePolicyRepository;
         _unitOfWork = unitOfWork;
         _pricingServicesFactory = pricingServiceFactory;
