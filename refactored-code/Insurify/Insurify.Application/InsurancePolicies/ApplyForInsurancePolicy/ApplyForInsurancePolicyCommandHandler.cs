@@ -36,7 +36,6 @@ public class ApplyForInsurancePolicyCommandHandler
         IInsuranceRepository insuranceRepository,
         IInsurancePolicyRepository insurancePolicyRepository,
         IUnitOfWork unitOfWork,
-        IElligibiltyCheckerFactory eligibilityCheckerFactory,
         IPricingServiceFactory pricingServiceFactory,
         IIdCreator idCreator)
     {
@@ -44,7 +43,6 @@ public class ApplyForInsurancePolicyCommandHandler
         _insuranceRepository = insuranceRepository;
         _insurancePolicyRepository = insurancePolicyRepository;
         _unitOfWork = unitOfWork;
-        _eligibilityCheckerFactory = eligibilityCheckerFactory;
         _pricingServicesFactory = pricingServiceFactory;
         _idCreator = idCreator;
     }
@@ -74,31 +72,20 @@ public class ApplyForInsurancePolicyCommandHandler
             return default!;
         }
 
-        var insuranceElligibilityChecker = _eligibilityCheckerFactory.GetEligibilityChecker(insurance);
+        var pricingService = _pricingServicesFactory.GetPricingService(insurance);
 
-        if(!insuranceElligibilityChecker.IsEligible(
+        var insurancePolicy = InsurancePolicy.ApplyFor(
+            _idCreator,
             insurance,
             customer,
             command.StartDate,
-            command.InsuredAmount))
-        {
-            return Result.Failure<int>(InsurancePoliciesErrors.NotEligible);
-        }
-
-        var pricingService =_pricingServicesFactory.GetPricingService(insurance);
+            command.InsuredAmount,
+            pricingService);
 
         try
         {
-            var insurancePolicy = InsurancePolicy.ApplyFor(
-                _idCreator,
-                insurance,
-                customer,
-                command.StartDate,
-                command.InsuredAmount,
-                pricingService);
 
             _insurancePolicyRepository.Add(insurancePolicy);
-
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return insurancePolicy.Id;
@@ -107,8 +94,6 @@ public class ApplyForInsurancePolicyCommandHandler
         {
             return Result.Failure<int>(InsurancePoliciesErrors.NotSaved);
         }
-
-
     }
 }
 

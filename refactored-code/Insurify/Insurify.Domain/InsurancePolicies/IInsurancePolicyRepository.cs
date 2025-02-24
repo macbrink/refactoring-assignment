@@ -26,4 +26,10 @@ public interface IInsurancePolicyRepository
     /// </summary>
     /// <param name="insurancePolicy">an InsurancePolicy instance</param>
     void Add(InsurancePolicy insurancePolicy);
+
+    /// <summary>
+    /// Updates an insurance policy in the repository.
+    /// </summary>
+    /// <param name="insurancePolicy">an InsurancePolicy instance</param>
+    void Update(InsurancePolicy insurancePolicy);
 }

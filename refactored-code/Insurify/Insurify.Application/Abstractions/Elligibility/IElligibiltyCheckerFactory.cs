@@ -13,5 +13,5 @@ public interface IElligibiltyCheckerFactory
     /// </summary>
     /// <param name="insurance">An Insurance Instance</param>
     /// <returns>ElligibilityCheker for this Insurance</returns>
-    IEligibilityCheckerFactory GetEligibilityChecker(Insurance insurance);
+    IInsuranceEligibilityChecker GetEligibilityChecker(Insurance insurance);
 }
