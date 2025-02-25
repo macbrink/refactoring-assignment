@@ -6,11 +6,10 @@ namespace Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
 /// Validator for the <see cref="ApplyForInsurancePolicyCommand"/>.
 /// </summary>
 public class ApplyForInsurancePolicyCommandValidator : AbstractValidator<ApplyForInsurancePolicyCommand>
-
-/// <summary>
-/// Constructor for the <see cref="ApplyForInsurancePolicyCommandValidator"/>.
-/// </summary>
 {
+    /// <summary>
+    /// Constructor for the <see cref="ApplyForInsurancePolicyCommandValidator"/>.
+    /// </summary>
     public ApplyForInsurancePolicyCommandValidator()
     {
         RuleFor(command => command.InsuranceId).NotEmpty();
