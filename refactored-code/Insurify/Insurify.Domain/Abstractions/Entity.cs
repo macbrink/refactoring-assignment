@@ -61,4 +61,17 @@ public abstract class Entity
     {
         _domainEvents.Add(domainEvent);
     }
+
+    /// <summary>
+    /// Set IsActive to false
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Exceptioon thrown when DomainEvnets exist</exception>
+    public void DeActivate()
+    {
+        if (_domainEvents.Count > 0)
+        {
+            throw new InvalidOperationException("Cannot deactivate an Entity holdong DomainEvents");
+        }
+        IsActive = false;
+    }
 }

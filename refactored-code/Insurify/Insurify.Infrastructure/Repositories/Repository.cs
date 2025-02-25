@@ -24,6 +24,15 @@ internal abstract class Repository<T>
         DbContext = dbContext;
     }
 
+    public async Task<List<T>> GetValuesAsync(
+        CancellationToken cancellationToken = default)
+    {
+        return await DbContext
+            .Set<T>()
+            .Where(item => item.IsActive)
+            .ToListAsync(cancellationToken);
+    }
+
     /// <summary>
     /// Gets an entity by its id.
     /// </summary>
@@ -33,7 +42,7 @@ internal abstract class Repository<T>
     {
         return await DbContext
             .Set<T>()
-            .FirstOrDefaultAsync(item => item.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(item => item.Id == id && item.IsActive, cancellationToken);
     }
 
     /// <summary>
@@ -44,12 +53,37 @@ internal abstract class Repository<T>
     {
         DbContext.Add(entity);
     }
+    /// <summary>
+    /// Updates an entity in the repository.
+    /// </summary>
+    /// <param name="entity">>an Entity instance</param>
+    public virtual void Update(T entity)
+    {
+        DbContext.Update(entity);
+    }
 
     /// <summary>
-    /// Removes an entity from the repository.
+    /// Soft-Removes an entity from the repository.
+    /// <para>
+    /// Deactivates the Entity
+    /// </para>
     /// </summary>
     /// <param name="entity">an Entity instance</param>
     public virtual void Remove(T entity)
+    {
+        if (entity is Entity)
+        {
+            var entityT = entity as Entity;
+            entityT.DeActivate();
+        }
+        DbContext.Update(entity);
+    }
+
+    /// <summary>
+    /// Removes the Entity from the DbContext
+    /// </summary>
+    /// <param name="entity"></param>
+    public virtual void RemoveFromDbContext(T entity)
     {
         DbContext.Remove(entity);
     }
