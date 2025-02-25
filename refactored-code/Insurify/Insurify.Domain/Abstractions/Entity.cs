@@ -34,6 +34,7 @@ public abstract class Entity
     /// <para>
     /// Use this property to mark an entity for soft delete.
     /// </para>
+    /// </summary>
     public bool IsActive { get; private set; } = true;
 
     /// <summary>

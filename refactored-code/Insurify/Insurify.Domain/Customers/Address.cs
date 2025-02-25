@@ -9,28 +9,9 @@
 /// <param name="City">the City</param>
 /// <param name="Street">the Street and Number</param>
 public record Address(
-    /// <summary>
-    /// The Address Country.
-    /// </summary>  
     string Country,
-
-    /// <summary>
-    /// The Address State
-    /// </summary>
     string State,
-
-    /// <summary>
-    /// The Address Postal Code or ZIP Code
-    /// </summary>
     string PostalCode,
-
-    /// <summary>
-    /// The Address City
-    /// </summary>
     string City,
-
-    /// <summary>
-    /// The Address Street and Number
-    /// </summary>
     string Street
 );

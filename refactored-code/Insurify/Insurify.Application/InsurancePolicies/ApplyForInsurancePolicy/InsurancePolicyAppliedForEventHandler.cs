@@ -88,7 +88,7 @@ internal sealed class InsurancePolicyAppliedForEventHandler : INotificationHandl
             policy.Confirm();
         }
 
-        _insurancePolicyRepository.Update(policy);        
+        await _insurancePolicyRepository.Update(policy);        
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

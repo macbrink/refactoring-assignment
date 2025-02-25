@@ -42,10 +42,16 @@ public class InsurancePoliciesErrors
         "InsurancePolicy.NotElligible",
         "The customer is not elligible for the requested insurance policy");
 
+    /// <summary>
+    /// Represents an error when the insurance policy is not saved to the data storage.
+    /// </summary>
     public static readonly Error NotSaved = new(
         "InsurancePolicy.NotSaves",
         "The insurance policy is not saved to the data storage");
 
+    /// <summary>
+    /// Represents an error when the customer is not active.
+    /// </summary>
     public static Error CustomerNotActive = new(
         "InsurancePolicy.CustomerNotActive",
         "The customer is not active");
