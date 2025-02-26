@@ -21,7 +21,7 @@ public class InsuranceController : Controller
 
         CancellationToken cancellationToken = new();
 
-        Result<IReadOnlyCollection<Insurance>> result = await _sender.Send(query, cancellationToken);
+        var result = await _sender.Send(query, cancellationToken);
 
         return View(result.Value);
     }

@@ -49,7 +49,7 @@ internal abstract class Repository<T>
     /// Adds an entity to the repository.
     /// </summary>
     /// <param name="entity">an Entity instance</param>
-    public virtual void Add(T entity)
+    public virtual void Add(T entity, CancellationToken cancellationToken)
     {
         DbContext.Add(entity);
     }

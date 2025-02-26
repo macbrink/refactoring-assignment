@@ -31,9 +31,9 @@ internal sealed class InsuranceRepository : Repository<Insurance>, IInsuranceRep
     /// Adds a new insurance entity.
     /// </summary>
     /// <param name="insurance">The insurance entity to add.</param>
-    public new void Add(Insurance insurance)
+    public new void Add(Insurance insurance, CancellationToken cancellationToken = default)
     {
-        base.Add(insurance);
+        base.Add(insurance, cancellationToken);
     }
 }
 

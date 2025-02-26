@@ -11,14 +11,5 @@ public interface ICustomerRepository
     /// <param name="customerId">The id of the customer</param>
     /// <param name="cancellationToken">A cancellation token</param>
     /// <returns>The customer</returns>
-    Task<Customer> GetByIdAsync(int customerId, CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Get a customer by their email
-    /// </summary>
-    /// <param name="email">The email of the customer</param>
-    /// <param name="cancellationToken">A cancellation token</param>
-    /// <returns>The customer</returns>
-    Task<Customer> GetCustomerByEmailAsync(string email, CancellationToken cancellationToken);
-    
+    Task<Customer?> GetByIdAsync(int customerId, CancellationToken cancellationToken);    
 }

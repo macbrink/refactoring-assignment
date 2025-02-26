@@ -87,7 +87,7 @@ public class ApplyForInsurancePolicyCommandHandler
         try
         {
 
-            await _insurancePolicyRepository.Add(insurancePolicy);
+            _insurancePolicyRepository.Add(insurancePolicy);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             return insurancePolicy.Id;

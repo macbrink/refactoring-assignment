@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Insurify.Application.Abstractions.Data;
+﻿using Insurify.Application.Abstractions.Data;
 using Insurify.Domain.Abstractions;
 using Insurify.Domain.Customers;
 using Insurify.Domain.InsurancePolicies;
@@ -14,33 +9,33 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Insurify.Infrastructure
+namespace Insurify.Infrastructure;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services, 
+        IConfiguration configuration)
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        var connectionString = 
+            configuration.GetConnectionString("DefaultConnection") ??
+            throw new ArgumentException("Connection string is missing", nameof(configuration));
+
+        services.AddDbContext<ApplicationDbContext>(options =>
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            options.UseSqlServer(connectionString);
+        });
 
-            if(string.IsNullOrWhiteSpace(connectionString))
-            {
-                throw new ArgumentException("Connection string is missing", nameof(connectionString));
-            }
+        services.AddScoped<IInsuranceRepository, InsuranceRepository>();
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(connectionString);
-            });
-            services.AddScoped<IInsuranceRepository, InsuranceRepository>();
+        services.AddScoped<IInsurancePolicyRepository, InsurancePolicyRepository>();
 
-            services.AddScoped<IInsurancePolicyRepository, InsurancePolicyRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
-            services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+        services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
 
-            services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
-            return services;
-        }
+        return services;
     }
 }

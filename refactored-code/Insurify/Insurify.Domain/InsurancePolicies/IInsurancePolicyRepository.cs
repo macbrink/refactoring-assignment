@@ -27,14 +27,13 @@ public interface IInsurancePolicyRepository
     /// <param name="insurancePolicy">The insurance policy</param>
     /// <param name="cancellationToken">a cancellation token</param>
     /// <returns></returns>
-    Task Add(InsurancePolicy insurancePolicy, CancellationToken cancellationToken = default);
+    void Add(InsurancePolicy insurancePolicy, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Updates an insurance policy in the repository.
     /// </summary>
     /// <param name="insurancePolicy">The insurance policy</param>
-    /// <param name="cancellationToken">a cancellation token</param>
-    Task Update(InsurancePolicy insurancePolicy, CancellationToken cancellationToken = default);
+    void Update(InsurancePolicy insurancePolicy);
 
 
 }

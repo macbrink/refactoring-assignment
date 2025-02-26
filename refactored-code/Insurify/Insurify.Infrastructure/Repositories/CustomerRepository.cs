@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Insurify.Domain.Customers;
+﻿using Insurify.Domain.Customers;
 
 namespace Insurify.Infrastructure.Repositories
 {
-    class CustomerRepository : Repository<Customer>, ICustomerRepository
+    /// <summary>
+    /// Repository for <see cref="Customer"/> entities.
+    /// </summary>
+    internal sealed class CustomerRepository : Repository<Customer>, ICustomerRepository
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomerRepository"/> class.
+        /// </summary>
+        /// <param name="dbContext">the ApplicationDbContext</param>
         public CustomerRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
