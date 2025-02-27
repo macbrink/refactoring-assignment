@@ -3,7 +3,7 @@ using Insurify.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Insurify.Infrastructure.Configuration;
+namespace Insurify.Infrastructure.Configurations;
 
 /// <summary>
 /// Configuration for the Insurance entity.
@@ -16,7 +16,7 @@ internal sealed class InsuranceConfiguration : IEntityTypeConfiguration<Insuranc
     /// <param name="builder">EF EntityTypeBuilder</param>
     public void Configure(EntityTypeBuilder<Insurance> builder)
     {
-        builder.ToTable("t-insurances");
+        builder.ToTable("t_insurances");
 
         builder.HasKey(insurance => insurance.Id);
 

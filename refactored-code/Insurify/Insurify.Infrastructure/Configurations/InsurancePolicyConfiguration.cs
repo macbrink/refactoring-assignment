@@ -5,12 +5,12 @@ using Insurify.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Insurify.Infrastructure.Configuration;
+namespace Insurify.Infrastructure.Configurations;
 
 /// <summary>
 /// Configuration for the InsurancePolicy entity.
 /// </summary>
-internal sealed class InsurancePolicyConfiguration
+internal sealed class InsurancePolicyConfiguration : IEntityTypeConfiguration<InsurancePolicy>
 {
     /// <summary>
     /// Configure the InsurancePolicy entity.

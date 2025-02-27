@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Insurify.Domain.Customers;
 
-namespace Insurify.Infrastructure.Configuration;
+namespace Insurify.Infrastructure.Configurations;
 
 /// <summary>
 /// Configuration for the Customer entity.
 /// </summary>
-internal sealed class CustomerConfiguration
+internal sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
     /// <summary>
     /// Configure the Customer entity.
@@ -15,7 +15,7 @@ internal sealed class CustomerConfiguration
     /// <param name="builder">EF EntityTypeBuilder</param>
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
-        builder.ToTable("t-customers");
+        builder.ToTable("t_customers");
 
         builder.HasKey(customer => customer.Id);
 
