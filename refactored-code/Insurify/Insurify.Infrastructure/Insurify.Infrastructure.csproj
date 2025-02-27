@@ -40,4 +40,8 @@
     <AdditionalDesignTimeBuildInput Remove="FakesAssemblies\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="DbContextFactory.cs" />
+  </ItemGroup>
+
 </Project>
