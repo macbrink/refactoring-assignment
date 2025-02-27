@@ -16,6 +16,7 @@ public interface IInsuranceRepository
     /// <summary>
     /// Adds an insurance to the repository.
     /// </summary>
-    /// <param name="insurance"></param>
-    void Add(Insurance insurance);
+    /// <param name="insurance">the Insurance</param>
+    /// <param name="cancellationToken">a CancellationToken</param>
+    void Add(Insurance insurance, CancellationToken cancellationToken = default);
 }
