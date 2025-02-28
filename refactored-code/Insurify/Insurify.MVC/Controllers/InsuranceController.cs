@@ -5,11 +5,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Insurify.MVC.Controllers;
-public class InsuranceController : Controller
+public class InsurancesController : Controller
 {
     private readonly ISender _sender;
 
-    public InsuranceController(ISender sender)
+    public InsurancesController(ISender sender)
     {
         _sender = sender;
     }
