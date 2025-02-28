@@ -1,4 +1,5 @@
 ﻿using Insurify.Application.Abstractions.Data;
+using Insurify.Application.Exceptions;
 using Insurify.Domain.Abstractions;
 using Insurify.Domain.Customers;
 using Insurify.Domain.InsurancePolicies;
@@ -10,9 +11,12 @@ namespace Insurify.Infrastructure;
 
 public class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContext
 {
+    private readonly IPublisher _publisher;
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IPublisher publisher)
         : base(options)
     {
+        _publisher = publisher;
     }
 
     public DbSet<Insurance> Insurances { get; private set; }
@@ -27,8 +31,6 @@ public class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContex
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
-
-    /*
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
@@ -66,5 +68,4 @@ public class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContex
             await _publisher.Publish(domainEvent);
         }
     }
-    */
 }

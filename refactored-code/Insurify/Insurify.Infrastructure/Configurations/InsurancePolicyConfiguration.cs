@@ -33,14 +33,24 @@ internal sealed class InsurancePolicyConfiguration : IEntityTypeConfiguration<In
 
         builder.OwnsOne(insurancePolicy => insurancePolicy.Fee, feeBuilder =>
         {
+            feeBuilder.Property(money => money.Amount)
+                .HasPrecision(18, 4)
+                .HasColumnName("FeeAmount");
+
             feeBuilder.Property(money => money.Currency)
-                .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
+                .HasConversion(currency => currency.Code, code => Currency.FromCode(code))
+                .HasColumnName("FeeCurrency");
         });
 
         builder.OwnsOne(insurancePolicy => insurancePolicy.InsuredAmount, insuredAmountBuilder =>
         {
+            insuredAmountBuilder.Property(money => money.Amount)
+                .HasPrecision(18, 4)
+                .HasColumnName("InsuredAmount");
+
             insuredAmountBuilder.Property(money => money.Currency)
-                .HasConversion(currency => currency.Code, code => Currency.FromCode(code));
+                .HasConversion(currency => currency.Code, code => Currency.FromCode(code))
+                .HasColumnName("InsuredCurrency");
         });
     }
 }

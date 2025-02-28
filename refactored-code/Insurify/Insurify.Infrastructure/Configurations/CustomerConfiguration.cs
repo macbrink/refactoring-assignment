@@ -19,16 +19,22 @@ internal sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 
         builder.HasKey(customer => customer.Id);
 
-        builder.HasOne(customer => customer.Address);
+        builder.OwnsOne(customer => customer.Address, address =>
+        {
+            address.Property(a => a.Street).HasColumnName("Street");
+            address.Property(a => a.City).HasColumnName("City");
+            address.Property(a => a.State).HasColumnName("State");
+            address.Property(a => a.PostalCode).HasColumnName("ZipCode");
+        });
 
         builder.Property(customer => customer.FirstName)
             .HasMaxLength(40)
-            .HasColumnName("Name")
+            .HasColumnName("FirstName")
             .HasConversion(Firstname => Firstname.Value, value => new FirstName(value));
 
         builder.Property(customer => customer.LastName)
             .HasMaxLength(40)
-            .HasColumnName("Name")
+            .HasColumnName("LastName")
             .HasConversion(Firstname => Firstname.Value, value => new LastName(value));
 
         builder.Property(customer => customer.Email)

@@ -1,19 +1,26 @@
 using Insurify.Application;
 using Insurify.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace Insurify.MVC;
 
 public class Program
 {
+    private const string ConnectionStringName = "DefaultConnection";
+
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+           
+        var connectionString =
+            builder.Configuration.GetConnectionString(ConnectionStringName) ??
+            throw new ArgumentException($"Connection string {ConnectionStringName} is missing");
 
         builder.Services.AddApplication();
-        builder.Services.AddInfrastructure(builder.Configuration);
+        builder.Services.AddInfrastructure(connectionString);
 
         var app = builder.Build();
 
