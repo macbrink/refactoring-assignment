@@ -20,6 +20,9 @@ internal sealed class InsuranceConfiguration : IEntityTypeConfiguration<Insuranc
 
         builder.HasKey(insurance => insurance.Id);
 
+        builder.Property(insurance => insurance.Id)
+            .ValueGeneratedNever();
+
         builder.Property(insurance => insurance.Name)
             .HasMaxLength(100)
             .HasColumnName("Name")

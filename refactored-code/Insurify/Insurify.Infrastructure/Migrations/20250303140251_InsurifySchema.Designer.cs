@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Insurify.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250228091514_InsurifySchema")]
+    [Migration("20250303140251_InsurifySchema")]
     partial class InsurifySchema
     {
         /// <inheritdoc />
@@ -28,10 +28,7 @@ namespace Insurify.Infrastructure.Migrations
             modelBuilder.Entity("Insurify.Domain.Customers.Customer", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly>("BirthDate")
                         .HasColumnType("date");
@@ -74,10 +71,7 @@ namespace Insurify.Infrastructure.Migrations
             modelBuilder.Entity("Insurify.Domain.InsurancePolicies.InsurancePolicy", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -109,10 +103,7 @@ namespace Insurify.Infrastructure.Migrations
             modelBuilder.Entity("Insurify.Domain.Insurances.Insurance", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()

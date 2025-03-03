@@ -1,5 +1,6 @@
 using Insurify.Application;
 using Insurify.Infrastructure;
+using Insurify.MVC.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Insurify.MVC;
@@ -20,7 +21,7 @@ public class Program
             throw new ArgumentException($"Connection string {ConnectionStringName} is missing");
 
         builder.Services.AddApplication();
-        builder.Services.AddInfrastructure(connectionString);
+        builder.Services.AddInfrastructure(builder.Configuration);
 
         var app = builder.Build();
 
@@ -30,9 +31,16 @@ public class Program
             app.UseExceptionHandler("/Home/Error");
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
+
+        }
+        else
+        {
+            // Uncomment this to seed the database with some data.
+            // app.SeedData();
         }
 
-        app.UseHttpsRedirection();
+
+            app.UseHttpsRedirection();
         app.UseRouting();
 
         app.UseAuthorization();
