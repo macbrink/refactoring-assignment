@@ -9,10 +9,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Insurify.Infrastructure;
 
+/// <summary>
+/// The application db context
+/// </summary>
 public class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContext
 {
     private readonly IPublisher _publisher;
 
+    /// <summary>
+    /// Constructor for the application db context
+    /// </summary>
+    /// <param name="options">Options to set up this context</param>
+    /// <param name="publisher">A publisher to send events</param>
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IPublisher publisher)
         : base(options)
     {
