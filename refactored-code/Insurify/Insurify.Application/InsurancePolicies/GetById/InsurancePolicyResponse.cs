@@ -1,6 +1,6 @@
 ﻿using Insurify.Domain.InsurancePolicies;
 
-namespace Insurify.Application.InsurancePolicies.GetInsurancePolicy;
+namespace Insurify.Application.InsurancePolicies.GetById;
 
 /// <summary>
 /// Response for the <see cref="GetInsurancePolicyQuery"/>.

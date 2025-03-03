@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
+namespace Insurify.Application.InsurancePolicies.ApplyFor;
 
 /// <summary>
 /// Validator for the <see cref="ApplyForInsurancePolicyCommand"/>.

@@ -1,7 +1,7 @@
 ﻿using Insurify.Application.Abstractions.Messaging;
 using Insurify.Domain.Shared;
 
-namespace Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
+namespace Insurify.Application.InsurancePolicies.ApplyFor;
 
 /// <summary>
 /// Recorde to apply for an insurance policy.

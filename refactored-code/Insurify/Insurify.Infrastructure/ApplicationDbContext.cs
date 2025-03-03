@@ -27,19 +27,37 @@ public class ApplicationDbContext : DbContext, IUnitOfWork, IApplicationDbContex
         _publisher = publisher;
     }
 
+    /// <summary>
+    /// The insurances
+    /// </summary>
     public DbSet<Insurance> Insurances { get; private set; }
 
+    /// <summary>
+    /// The insurance policies
+    /// </summary>
     public DbSet<InsurancePolicy> InsurancePolicies { get; private set;  }
 
+    /// <summary>
+    /// The customers
+    /// </summary>
     public DbSet<Customer> Customers { get; private set; }
 
-
+    /// <summary>
+    /// On model creating
+    /// </summary>
+    /// <param name="modelBuilder">The dBConetxt model builder</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
     }
 
+    /// <summary>
+    /// Save changes and publish domain events
+    /// </summary>
+    /// <param name="cancellationToken">a CancellationToken</param>
+    /// <returns>Rows affected</returns>
+    /// <exception cref="ConcurrencyException"></exception>
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         try

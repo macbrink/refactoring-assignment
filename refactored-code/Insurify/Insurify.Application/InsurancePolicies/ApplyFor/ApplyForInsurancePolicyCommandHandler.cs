@@ -6,7 +6,7 @@ using Insurify.Domain.Customers;
 using Insurify.Domain.InsurancePolicies;
 using Insurify.Domain.Insurances;
 
-namespace Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
+namespace Insurify.Application.InsurancePolicies.ApplyFor;
 
 /// <summary>
 /// Handler for the <see cref="ApplyForInsurancePolicyCommand" />

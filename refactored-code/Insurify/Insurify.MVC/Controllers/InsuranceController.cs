@@ -1,4 +1,4 @@
-﻿using Insurify.Application.Insurances.GetInsurances;
+﻿using Insurify.Application.Insurances.Get;
 using Insurify.Domain.Abstractions;
 using Insurify.Domain.Insurances;
 using MediatR;
@@ -17,7 +17,7 @@ public class InsurancesController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var query = new GetInsurancesQuery();
+        var query = new GetInsurancesQuery(string.Empty);
 
         CancellationToken cancellationToken = new();
 

@@ -8,7 +8,7 @@ using Insurify.Domain.Insurances;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Insurify.Application.Abstractions.Elligibility;
 
-namespace Insurify.Application.InsurancePolicies.ApplyForInsurancePolicy;
+namespace Insurify.Application.InsurancePolicies.ApplyForI;
 
 /// <summary>
 /// Command To be issued after an insurance policy has been applied for.

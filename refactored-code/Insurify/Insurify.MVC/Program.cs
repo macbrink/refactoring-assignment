@@ -1,6 +1,5 @@
 using Insurify.Application;
 using Insurify.Infrastructure;
-using Insurify.MVC.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Insurify.MVC;
