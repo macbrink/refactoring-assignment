@@ -19,6 +19,9 @@ internal sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 
         builder.HasKey(customer => customer.Id);
 
+        builder.Property(customer => customer.Id)
+            .ValueGeneratedNever();
+
         builder.OwnsOne(customer => customer.Address, address =>
         {
             address.Property(a => a.Street).HasColumnName("Street");

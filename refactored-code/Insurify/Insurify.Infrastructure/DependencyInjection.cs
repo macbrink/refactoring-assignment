@@ -13,18 +13,31 @@ using Insurify.Infrastructure.Services.ElligibilityServices;
 using Insurify.Infrastructure.Services.IdCreatorServices;
 using Insurify.Infrastructure.Services.PricingServices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Insurify.Infrastructure;
 
 /// <summary>
 /// Dependency injection for the infrastructure layer.
+/// Adds services to the service collection.
+/// - InsuranceRepository
+/// - InsurancePolicyRepository
+/// - CustomerRepository
+/// - InsuranceElligibilityCheckerFactory
+/// - JsonIdCreator
+/// - PricingServicesFactory
+/// - EmailService
+/// - UnitOfWork
+/// - SqlConnectionFactory
+/// - ApplicationDbContext
+/// - ISqlConnectionFactory
 /// </summary>
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        string connectionString)
+        IConfiguration configuration)
     { 
         services.AddScoped<IInsuranceRepository, InsuranceRepository>();
 
@@ -41,6 +54,10 @@ public static class DependencyInjection
         services.AddTransient<IEmailService, EmailService>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
+
+        var connectionString =
+            configuration.GetConnectionString("DefaultConnection") ??
+            throw new ArgumentNullException(nameof(configuration));
 
         services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
 

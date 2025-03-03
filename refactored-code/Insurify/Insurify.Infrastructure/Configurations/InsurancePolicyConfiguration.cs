@@ -22,6 +22,9 @@ internal sealed class InsurancePolicyConfiguration : IEntityTypeConfiguration<In
 
         builder.HasKey(insurancePolicy => insurancePolicy.Id);
 
+        builder.Property(insurancePolicy => insurancePolicy.Id)
+            .ValueGeneratedNever();
+
         builder.HasOne<Insurance>()
             .WithMany()
             .HasForeignKey(insurancePolicy => insurancePolicy.InsuranceId);
