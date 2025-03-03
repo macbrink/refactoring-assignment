@@ -9,7 +9,7 @@ namespace Insurify.Domain.InsurancePolicies;
 /// <summary>
 /// Model representing an insurance policy.
 /// </summary>
-public class InsurancePolicy : Entity
+public sealed class InsurancePolicy : Entity
 {
     /// <summary>
     /// Constructor for an InsurancePolicy

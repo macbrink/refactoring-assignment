@@ -71,7 +71,7 @@ public abstract class Entity
     {
         if (_domainEvents.Count > 0)
         {
-            throw new InvalidOperationException("Cannot deactivate an Entity holdong DomainEvents");
+            throw new InvalidOperationException("Cannot deactivate an Entity holding DomainEvents");
         }
         IsActive = false;
     }
