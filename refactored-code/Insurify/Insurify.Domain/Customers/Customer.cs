@@ -111,6 +111,9 @@ public sealed class Customer : Entity
             email,
             address,
             hasSecurityCertificate);
+
+        customer.RaiseDomainEvent(new CustomerCreatedDomainEvent(customer.Id));
+
         return Result.Success(customer);
     }
 
