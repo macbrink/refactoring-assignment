@@ -12,7 +12,7 @@ public sealed class InsurancePolicyQueryHandler
     /// <summary>
     /// Constructor for the <see cref="InsurancePolicyQueryHandler"/>.
     /// </summary>
-    /// <param name="insurancePolicyRepository">Insurance policy repository</param>
+    /// <param name="insurancePolicyRepository"><see cref="IInsurancePolicyRepository"></param>
     public InsurancePolicyQueryHandler(IInsurancePolicyRepository insurancePolicyRepository)
     {
         _insurancePolicyRepository = insurancePolicyRepository;
@@ -24,7 +24,7 @@ public sealed class InsurancePolicyQueryHandler
     /// <param name="query">the query</param>
     /// <param name="cancellationToken">a cancellation token</param>
     /// <returns></returns>
-    /// <exception cref="Exception"></exception>
+    /// <exception cref="Exception">Exception thrown when insurance policy is not found y Id</exception>
     public async Task<InsurancePolicyResponse> Handle(GetInsurancePolicyQuery query, CancellationToken cancellationToken)
     {
         var insurancePolicy = await _insurancePolicyRepository.GetByIdAsync(query.InsurancePolicyId, cancellationToken);

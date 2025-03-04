@@ -11,5 +11,12 @@ public interface ICustomerRepository
     /// <param name="customerId">The id of the customer</param>
     /// <param name="cancellationToken">A cancellation token</param>
     /// <returns>The customer</returns>
-    Task<Customer?> GetByIdAsync(int customerId, CancellationToken cancellationToken);    
+    Task<Customer?> GetByIdAsync(int customerId, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Add a customer to the repository
+    /// </summary>
+    /// <param name="customer">a Customer instance</param>
+    /// <param name="cancellationToken">a CancellationToken</param>
+    void Add(Customer customer, CancellationToken cancellationToken);
 }

@@ -19,11 +19,15 @@ public sealed class Customer : Entity
     /// <param name="lastName">Customer's last name</param>
     /// <param name="email">Customer's email-address</param>
     /// <param name="birthDate">Customer's burth date</param>
+    /// <param name="address">Customer's address</param>
+    /// <param name="hasSecurityCertificate">Wether the customer has a security certificate</param>
     private Customer(IIdCreator idCreator,
         Name firstName,
         Name lastName,
         DateOnly birthDate,
-        Email email
+        Email email,
+        Address address,
+        bool hasSecurityCertificate = false
         )
         : base(idCreator)
     {
@@ -31,12 +35,10 @@ public sealed class Customer : Entity
         LastName = lastName;
         BirthDate = birthDate;
         Email = email;
+        Address = address;
+        HasSecurityCertificate = hasSecurityCertificate;
 
         Status = CustomerStatus.Created;
-
-        // Randomly assign a security certificate to keep class simle
-        // For real-world scenario, this should be handled by a service
-        HasSecurityCertificate = random.Next(2) == 0;
     }
 
     /// <summary>
@@ -79,7 +81,7 @@ public sealed class Customer : Entity
     /// <summary>
     /// Gets the status of the customer.
     /// </summary>
-    public CustomerStatus Status { get; private set; } 
+    public CustomerStatus Status { get; private set; }
 
     /// <summary>
     /// Creates a new instance of the <see cref="Customer"/> class.
@@ -89,20 +91,26 @@ public sealed class Customer : Entity
     /// <param name="lastName">Customer's last name</param>
     /// <param name="email">Customer's last name</param>
     /// <param name="birthDate">Customer's burth date</param>
+    /// <param name="address">Customer's address</param>
+    /// <param name="hasSecurityCertificate">Wether the customer has a security certificate</param>
     /// <returns>Customer Instance</returns>
     public static Result<Customer> Create(
         IIdCreator idCreator,
         Name firstName,
         Name lastName,
         DateOnly birthDate,
-        Email email)
+        Email email,
+        Address address,
+        bool hasSecurityCertificate)
     {
         var customer = new Customer(
             idCreator, 
             firstName, 
             lastName, 
             birthDate, 
-            email);
+            email,
+            address,
+            hasSecurityCertificate);
         return Result.Success(customer);
     }
 

@@ -32,5 +32,8 @@ public class ApplyForInsurancePolicyViewModel
     public int InsuranceId { get; set; }
 
     [Display(Name = "Insured Amount")]
-    public decimal InsuredAmount { get; set; } 
+    public decimal InsuredAmount { get; set; }
+
+    [Display(Name = "Security Certificate")]
+    public bool HasSecurityCertificate { get; set; }
 }

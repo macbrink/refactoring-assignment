@@ -9,9 +9,21 @@ namespace Insurify.Application.Customers.Add;
 /// <param name="LastName">First Name</param>
 /// <param name="Email">EMail</param>
 /// <param name="BirthDate">Birth Date</param>
+/// <param name="AddressCountry">Country</param>
+/// <param name="AddressPostalCode">Postal code</param>
+/// <param name="AddressState">State</param>
+/// <param name="AddressCity">City</param>
+/// <param name="AddressStreet">Street</param>
+/// <param name="HasSecurityCertificate">Security Certificate</param>
 public sealed record AddCustomerCommand(
     string FirstName,
     string LastName,
     string Email,
-    DateOnly BirthDate
+    DateOnly BirthDate,
+    string AddressCountry,
+    string AddressState,
+    string AddressPostalCode,
+    string AddressCity,
+    string AddressStreet,
+    bool HasSecurityCertificate
     ) : ICommand;
