@@ -1,0 +1,31 @@
+﻿@using Insurify.Application.Insurances.Shared
+
+@model List<InsuranceResponse>  
+ 
+@{  
+   ViewData["Title"] = "Insurance List";  
+}  
+ 
+<h2>@ViewData["Title"]</h2>  
+ 
+<table class="table">  
+   <thead>  
+       <tr>  
+           <th>Name</th>  
+           <th>Description</th>
+            <th>Price</th>
+            <th></th>
+       </tr>  
+   </thead>  
+   <tbody>  
+       @foreach (var insurance in Model)  
+       {  
+           <tr>  
+               <th>@insurance.Name</th>  
+               <td>@insurance.Description</td>
+               <td>@insurance.PriceCurrency @insurance.PriceAmount</td>
+               <td><a asp-controller="InsurancePolicies" asp-action="ApplyFor" asp-route-id="@insurance.Id">Apply</a></td>  
+           </tr>  
+       }  
+   </tbody>  
+</table>

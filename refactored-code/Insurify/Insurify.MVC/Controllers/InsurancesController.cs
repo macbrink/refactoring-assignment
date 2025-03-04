@@ -1,6 +1,4 @@
-﻿using Insurify.Application.Insurances.Get;
-using Insurify.Domain.Abstractions;
-using Insurify.Domain.Insurances;
+﻿using Insurify.Application.Insurances.Search;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +15,7 @@ public class InsurancesController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var query = new GetInsurancesQuery(string.Empty);
+        var query = new SearchInsurancesQuery(string.Empty);
 
         CancellationToken cancellationToken = new();
 

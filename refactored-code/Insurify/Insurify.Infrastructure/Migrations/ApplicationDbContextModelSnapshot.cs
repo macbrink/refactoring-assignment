@@ -25,7 +25,8 @@ namespace Insurify.Infrastructure.Migrations
             modelBuilder.Entity("Insurify.Domain.Customers.Customer", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("cus_pk");
 
                     b.Property<DateOnly>("BirthDate")
                         .HasColumnType("date");
@@ -34,25 +35,26 @@ namespace Insurify.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(254)
                         .HasColumnType("nvarchar(254)")
-                        .HasColumnName("Email");
+                        .HasColumnName("cus_email");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
-                        .HasColumnName("FirstName");
+                        .HasColumnName("cus_firstname");
 
                     b.Property<bool>("HasSecurityCertificate")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasColumnName("is_active");
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
-                        .HasColumnName("LastName");
+                        .HasColumnName("cus_lastname");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -68,16 +70,19 @@ namespace Insurify.Infrastructure.Migrations
             modelBuilder.Entity("Insurify.Domain.InsurancePolicies.InsurancePolicy", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("inp_pk");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("InsuranceId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("inp_ins_id");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasColumnName("is_active");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -86,7 +91,8 @@ namespace Insurify.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SubscriberId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("inp_cus_id");
 
                     b.HasKey("Id");
 
@@ -100,22 +106,24 @@ namespace Insurify.Infrastructure.Migrations
             modelBuilder.Entity("Insurify.Domain.Insurances.Insurance", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ins_pk");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)")
-                        .HasColumnName("Description");
+                        .HasColumnName("ins_description");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("bit")
+                        .HasColumnName("is_active");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Name");
+                        .HasColumnName("ins_name");
 
                     b.HasKey("Id");
 
@@ -132,7 +140,7 @@ namespace Insurify.Infrastructure.Migrations
                             b1.Property<string>("City")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("City");
+                                .HasColumnName("cus_city");
 
                             b1.Property<string>("Country")
                                 .IsRequired()
@@ -141,17 +149,17 @@ namespace Insurify.Infrastructure.Migrations
                             b1.Property<string>("PostalCode")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("ZipCode");
+                                .HasColumnName("cus_postalcode");
 
                             b1.Property<string>("State")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("State");
+                                .HasColumnName("cus_state");
 
                             b1.Property<string>("Street")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("Street");
+                                .HasColumnName("cus_street");
 
                             b1.HasKey("CustomerId");
 
@@ -187,12 +195,12 @@ namespace Insurify.Infrastructure.Migrations
                             b1.Property<decimal>("Amount")
                                 .HasPrecision(18, 4)
                                 .HasColumnType("decimal(18,4)")
-                                .HasColumnName("FeeAmount");
+                                .HasColumnName("inp_feeamount");
 
                             b1.Property<string>("Currency")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("FeeCurrency");
+                                .HasColumnName("inp_feecurrency");
 
                             b1.HasKey("InsurancePolicyId");
 
@@ -210,12 +218,12 @@ namespace Insurify.Infrastructure.Migrations
                             b1.Property<decimal>("Amount")
                                 .HasPrecision(18, 4)
                                 .HasColumnType("decimal(18,4)")
-                                .HasColumnName("InsuredAmount");
+                                .HasColumnName("inp_insuredamount");
 
                             b1.Property<string>("Currency")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("InsuredCurrency");
+                                .HasColumnName("inp_insuredcurrency");
 
                             b1.HasKey("InsurancePolicyId");
 
@@ -242,12 +250,12 @@ namespace Insurify.Infrastructure.Migrations
                             b1.Property<decimal>("Amount")
                                 .HasPrecision(18, 4)
                                 .HasColumnType("decimal(18,4)")
-                                .HasColumnName("PriceAmount");
+                                .HasColumnName("ins_priceamount");
 
                             b1.Property<string>("Currency")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("PriceCurrency");
+                                .HasColumnName("ins_pricecurrency");
 
                             b1.HasKey("InsuranceId");
 

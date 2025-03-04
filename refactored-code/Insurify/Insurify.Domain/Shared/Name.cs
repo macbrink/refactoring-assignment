@@ -1,4 +1,4 @@
-﻿namespace Insurify.Domain.Insurances;
+﻿namespace Insurify.Domain.Shared;
 /// <summary>
 /// Name of an insurance policy.
 /// </summary>

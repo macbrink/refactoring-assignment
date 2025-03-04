@@ -1,0 +1,59 @@
+﻿@model ApplyForInsurancePolicyViewModel
+
+<h1>@ViewBag.Title</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="InsuranceId" />
+    <h3>About you</h3>
+    <div class="form-group">
+        <label asp-for="FirstName" class="control-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="LastName" class="control-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="BirthDate" class="control-label"></label>
+        <input asp-for="BirthDate" class="form-control" />
+        <span asp-validation-for="BirthDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressCountry" class="control-label"></label>
+        <input asp-for="AddressCountry" class="form-control" />
+        <span asp-validation-for="AddressCountry" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressState" class="control-label"></label>
+        <input asp-for="AddressState" class="form-control" />
+        <span asp-validation-for="AddressState" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressPostalCode" class="control-label"></label>
+        <input asp-for="AddressPostalCode" class="form-control" />
+        <span asp-validation-for="AddressPostalCode" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AddressStreet" class="control-label"></label>
+        <input asp-for="AddressStreet" class="form-control" />
+        <span asp-validation-for="AddressStreet" class="text-danger"></span>
+    </div>
+    <<h3>About your Insurance</h3>
+    <div class="form-group">
+        <label asp-for="InsuredAmount" class="control-label"></label>
+        <input asp-for="InsuredAmount" class="form-control" />
+        <span asp-validation-for="InsuredAmount" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

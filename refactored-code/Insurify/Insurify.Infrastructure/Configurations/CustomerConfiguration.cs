@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 using Insurify.Domain.Customers;
+using Insurify.Domain.Shared;
 
 namespace Insurify.Infrastructure.Configurations;
 
@@ -12,7 +13,7 @@ internal sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     /// <summary>
     /// Configure the Customer entity.
     /// </summary>
-    /// <param name="builder">EF EntityTypeBuilder</param>
+    /// <param name="builder">Entity Framework <see cref="EntityTypeBuilder{TEntity}"></param>
     public void Configure(EntityTypeBuilder<Customer> builder)
     {
         builder.ToTable("t_customers");
@@ -20,29 +21,32 @@ internal sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
         builder.HasKey(customer => customer.Id);
 
         builder.Property(customer => customer.Id)
+            .HasColumnName("cus_pk");
+
+        builder.Property(customer => customer.Id)
             .ValueGeneratedNever();
 
         builder.OwnsOne(customer => customer.Address, address =>
         {
-            address.Property(a => a.Street).HasColumnName("Street");
-            address.Property(a => a.City).HasColumnName("City");
-            address.Property(a => a.State).HasColumnName("State");
-            address.Property(a => a.PostalCode).HasColumnName("ZipCode");
+            address.Property(a => a.Street).HasColumnName("cus_street");
+            address.Property(a => a.City).HasColumnName("cus_city");
+            address.Property(a => a.State).HasColumnName("cus_state");
+            address.Property(a => a.PostalCode).HasColumnName("cus_postalcode");
         });
 
         builder.Property(customer => customer.FirstName)
             .HasMaxLength(40)
-            .HasColumnName("FirstName")
-            .HasConversion(Firstname => Firstname.Value, value => new FirstName(value));
+            .HasColumnName("cus_firstname")
+            .HasConversion(Firstname => Firstname.Value, value => new Name(value));
 
         builder.Property(customer => customer.LastName)
             .HasMaxLength(40)
-            .HasColumnName("LastName")
-            .HasConversion(Firstname => Firstname.Value, value => new LastName(value));
+            .HasColumnName("cus_lastname")
+            .HasConversion(Firstname => Firstname.Value, value => new Name(value));
 
         builder.Property(customer => customer.Email)
             .HasMaxLength(254)
-            .HasColumnName("Email")
+            .HasColumnName("cus_email")
             .HasConversion(email => email.Value, value => new Domain.Customers.Email(value));
 
         builder.HasIndex(customer => customer.Email).IsUnique();

@@ -1,5 +1,6 @@
 ﻿using Insurify.Domain.Abstractions;
 using Insurify.Domain.Customers.Events;
+using Insurify.Domain.Shared;
 
 namespace Insurify.Domain.Customers;
 
@@ -19,8 +20,8 @@ public sealed class Customer : Entity
     /// <param name="email">Customer's email-address</param>
     /// <param name="birthDate">Customer's burth date</param>
     private Customer(IIdCreator idCreator,
-        FirstName firstName,
-        LastName lastName,
+        Name firstName,
+        Name lastName,
         DateOnly birthDate,
         Email email
         )
@@ -48,12 +49,12 @@ public sealed class Customer : Entity
     /// <summary>
     /// Gets the first name of the customer.
     /// </summary>
-    public FirstName FirstName { get; private set; } = default!;
+    public Name FirstName { get; private set; } = default!;
 
     /// <summary>
     /// Gets the last name of the customer.
     /// </summary>
-    public LastName LastName { get; private set; } = default!;
+    public Name LastName { get; private set; } = default!;
 
     /// <summary>
     /// Gets the email of the customer.
@@ -91,8 +92,8 @@ public sealed class Customer : Entity
     /// <returns>Customer Instance</returns>
     public static Result<Customer> Create(
         IIdCreator idCreator,
-        FirstName firstName,
-        LastName lastName,
+        Name firstName,
+        Name lastName,
         DateOnly birthDate,
         Email email)
     {
@@ -112,8 +113,8 @@ public sealed class Customer : Entity
     /// <param name="lastName">Customer's last name</param>
     /// <returns><see cref="Result"/></returns>
     public Result UpdateName(
-        FirstName firstName,
-        LastName lastName)
+       Name firstName,
+       Name lastName)
     {
         FirstName = firstName;
         LastName = lastName;

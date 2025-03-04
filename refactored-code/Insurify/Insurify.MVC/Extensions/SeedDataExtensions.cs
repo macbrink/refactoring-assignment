@@ -18,7 +18,7 @@ public static class SeedDataExtensions
         var insurance = new
         {
             Id = idCreator.CreateId(),
-            Name = "Insurance",
+            Name = "Home Insurance",
             Description = "Home Insurance is a type of property insurance that provides financial protection against damage or loss to a home and its contents. It typically covers risks such as fire, theft, vandalism, and natural disasters, depending on the policy. Home insurance may also include liability coverage, protecting homeowners if someone is injured on their property",
             PriceAmount = 100.00m,
             PriceCurrency = "EUR"
@@ -27,7 +27,7 @@ public static class SeedDataExtensions
         using var connection = sqlConnectionFactory.CreateConnection();
 
         const string sql = """
-            INSERT INTO t_insurances (Id, Name, Description, PriceAmount, PriceCurrency, IsActive)   
+            INSERT INTO t_insurances (ins_pk, ins_name, ins_description, ins_priceamount, ins_pricecurrency, is_active)   
             VALUES (@Id, @Name, @Description, @PriceAmount, @PriceCurrency, 1 )
             """;
 

@@ -1,4 +1,6 @@
-﻿namespace Insurify.Domain.Abstractions;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Insurify.Domain.Abstractions;
 
 /// <summary>
 /// Base class for all entities.
@@ -35,6 +37,7 @@ public abstract class Entity
     /// Use this property to mark an entity for soft delete.
     /// </para>
     /// </summary>
+    [Column("is_active")]
     public bool IsActive { get; private set; } = true;
 
     /// <summary>

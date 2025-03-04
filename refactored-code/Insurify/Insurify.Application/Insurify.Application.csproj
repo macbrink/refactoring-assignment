@@ -29,4 +29,8 @@
     <ProjectReference Include="..\Insurify.Domain\Insurify.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Customers\GetById\" />
+  </ItemGroup>
+
 </Project>
