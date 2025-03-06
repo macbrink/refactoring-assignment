@@ -76,16 +76,18 @@ internal sealed class InsurancePolicyAppliedForEventHandler : INotificationHandl
 
         var insuranceElligibilityChecker = _eligibilityCheckerFactory.GetEligibilityChecker(insurance);
 
-        if (insuranceElligibilityChecker.IsEligible(
+        bool elligible = (insuranceElligibilityChecker.IsEligible(
             insurance,
             customer,
-            cancellationToken))
+            cancellationToken));
+
+        if (elligible)
         {
-            policy.Reject();
+            policy.Confirm();
         }
         else
         {
-            policy.Confirm();
+            policy.Reject();
         }
 
         _insurancePolicyRepository.Update(policy);        

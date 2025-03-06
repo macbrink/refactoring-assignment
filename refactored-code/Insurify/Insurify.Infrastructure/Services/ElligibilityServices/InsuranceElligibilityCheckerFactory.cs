@@ -16,6 +16,10 @@ internal class InsuranceElligibilityCheckerFactory : IElligibiltyCheckerFactory
     /// <returns>an object that implements <see cref="IEligibilityCheckerFactory"/></returns>
     public IInsuranceEligibilityChecker GetEligibilityChecker(Insurance insurance)
     {
-        return new HomeInsuranceEligibilityChecker();
+        return insurance.Name.Value switch
+        {
+            "HomeInsurance" => new HomeInsuranceEligibilityChecker(),
+            _ => new DefaultEligibilityChecker(),
+        };
     }
 }

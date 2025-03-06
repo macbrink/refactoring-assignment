@@ -12,7 +12,7 @@ namespace Insurify.Infrastructure.Services.ElligibilityServices;
 /// A customer is elligible for home insurance if they are 18 years of older.
 /// </para>
 /// </summary>
-internal class HomeInsuranceEligibilityChecker : IInsuranceEligibilityChecker
+internal class DefaultEligibilityChecker : IInsuranceEligibilityChecker
 {
     private const int ElligibilityAge = 18;
 
@@ -21,10 +21,6 @@ internal class HomeInsuranceEligibilityChecker : IInsuranceEligibilityChecker
         Customer customer,
         CancellationToken cancellationToken = default)
     {
-        var age = customer.BirthDate.CalculateAge();
-
-        var eligible =  age >= ElligibilityAge;
-
-        return eligible;
+        return true;
     }
 }

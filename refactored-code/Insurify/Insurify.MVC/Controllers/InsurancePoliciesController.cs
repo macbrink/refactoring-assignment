@@ -1,6 +1,7 @@
 ﻿using Insurify.Application.Abstractions.Dates;
 using Insurify.Application.Customers.Add;
 using Insurify.Application.InsurancePolicies.ApplyFor;
+using Insurify.Application.InsurancePolicies.GetById;
 using Insurify.Application.Insurances.GetById;
 using Insurify.Application.Insurances.Shared;
 using Insurify.Domain.Abstractions;
@@ -54,23 +55,39 @@ public class InsurancePoliciesController : Controller
             return View(viewModel);
         }
 
-        Result<int> customerId = await AddCustomer(viewModel);
+        Result<int> customerResult = await AddCustomer(viewModel);
 
-        if(customerId.IsFailure)
+        if(customerResult.IsFailure)
         {
-            ModelState.AddModelError(string.Empty, customerId.Error.Name);
+            ModelState.AddModelError(string.Empty, customerResult.Error.Name);
             return View(viewModel);
         }
         
-        var insurancePolicyId = await ApplyForInsurancePolicy(viewModel, customerId);
+        var insurancePolicyResult = await ApplyForInsurancePolicy(viewModel, customerResult);
 
-        if(insurancePolicyId.IsFailure)
+        if(insurancePolicyResult.IsFailure)
         {
-            ModelState.AddModelError(string.Empty, insurancePolicyId.Error.Name);
+            ModelState.AddModelError(string.Empty, insurancePolicyResult.Error.Name);
             return View(viewModel);
         }
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction(nameof(Details), new { id = insurancePolicyResult.Value} );
+    }
+
+    // GET: InsurancePolicies/Details/5
+    [HttpGet]
+    public async Task<IActionResult> Details(int? id)
+    {
+        if(id == null)
+        {
+            return NotFound();
+        }
+        Result<InsurancePolicyResponse> result = await _sender.Send(new GetInsurancePolicyByIdQuery(id), new CancellationToken());
+        if(result.IsFailure)
+        {
+            return NotFound();
+        }
+        return View(result.Value);
     }
 
     private async Task<Result<int>> ApplyForInsurancePolicy(ApplyForInsurancePolicyViewModel viewModel, Result<int> customerId)

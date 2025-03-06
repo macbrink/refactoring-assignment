@@ -1,19 +1,20 @@
-﻿using Insurify.Domain.InsurancePolicies;
+﻿using Insurify.Application.Abstractions.Messaging;
+using Insurify.Domain.InsurancePolicies;
 
 namespace Insurify.Application.InsurancePolicies.GetById;
 
 /// <summary>
-/// Handler for the <see cref="GetInsurancePolicyQuery"/>.
+/// Handler for the <see cref="GetInsurancePolicyByIdQuery"/>.
 /// </summary>
-public sealed class GetInsurancePolicyQueryHandler
+public sealed class GetInsurancePolicyByIdQueryHandler : IQueryHandler<GetInsurancePolicyByIdQuery, InsurancePolicyResponse>
 {
     private readonly IInsurancePolicyRepository _insurancePolicyRepository;
 
     /// <summary>
-    /// Constructor for the <see cref="GetInsurancePolicyQueryHandler"/>.
+    /// Constructor for the <see cref="GetInsurancePolicyByIdQueryHandler"/>.
     /// </summary>
     /// <param name="insurancePolicyRepository"><see cref="IInsurancePolicyRepository" /></param>
-    public GetInsurancePolicyQueryHandler(IInsurancePolicyRepository insurancePolicyRepository)
+    public GetInsurancePolicyByIdQueryHandler(IInsurancePolicyRepository insurancePolicyRepository)
     {
         _insurancePolicyRepository = insurancePolicyRepository;
     }
@@ -25,7 +26,7 @@ public sealed class GetInsurancePolicyQueryHandler
     /// <param name="cancellationToken">a cancellation token</param>
     /// <returns></returns>
     /// <exception cref="Exception">Exception thrown when insurance policy is not found y Id</exception>
-    public async Task<InsurancePolicyResponse> Handle(GetInsurancePolicyQuery query, CancellationToken cancellationToken)
+    public async Task<InsurancePolicyResponse> Handle(GetInsurancePolicyByIdQuery query, CancellationToken cancellationToken)
     {
         var insurancePolicy = await _insurancePolicyRepository.GetByIdAsync(query.InsurancePolicyId, cancellationToken);
         return insurancePolicy is null

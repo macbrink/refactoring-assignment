@@ -16,6 +16,7 @@ internal sealed class EmailService : IEmailService
     /// <returns></returns>
     public Task SendAsync(Domain.Customers.Email recipient, string subject, string body)
     {
+        Console.WriteLine($"Sending email to {recipient.Value} \r\n with subject {subject} \r\n and body {body}");
         return Task.CompletedTask;
     }
 }
