@@ -1,3 +1,4 @@
+using Insurify.MVC.Extensions; // leave this if you want to use app.SeedData()
 using Insurify.Application;
 using Insurify.Infrastructure;
 using Microsoft.EntityFrameworkCore;

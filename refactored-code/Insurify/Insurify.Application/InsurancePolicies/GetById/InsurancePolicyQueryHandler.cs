@@ -12,7 +12,7 @@ public sealed class InsurancePolicyQueryHandler
     /// <summary>
     /// Constructor for the <see cref="InsurancePolicyQueryHandler"/>.
     /// </summary>
-    /// <param name="insurancePolicyRepository"><see cref="IInsurancePolicyRepository"></param>
+    /// <param name="insurancePolicyRepository"><see cref="IInsurancePolicyRepository" /></param>
     public InsurancePolicyQueryHandler(IInsurancePolicyRepository insurancePolicyRepository)
     {
         _insurancePolicyRepository = insurancePolicyRepository;
