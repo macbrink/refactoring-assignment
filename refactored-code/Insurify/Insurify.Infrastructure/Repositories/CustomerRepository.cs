@@ -1,4 +1,5 @@
 ﻿using Insurify.Domain.Customers;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace Insurify.Infrastructure.Repositories
@@ -20,9 +21,11 @@ namespace Insurify.Infrastructure.Repositories
         }
 
         /// <inheritdoc />
-        public async Task<bool> EmailExists(string email, CancellationToken cancellationToken)
+        public async Task<bool> EmailExists(string email)
         {
-            return await _dbContext.Customers.AnyAsync(c => c.Email.Value == email, cancellationToken);
+            var sql = "SELECT COUNT(1) FROM t_customers WHERE cus_email = @Email";
+            var count = await _dbContext.Database.ExecuteSqlRawAsync(sql, new SqlParameter("@Email", email));
+            return count > 0;
         }
     }
 }

@@ -9,16 +9,16 @@ namespace Insurify.Application.Insurances.Search;
 /// <summary>
 /// Handles queries for getting insurance information.
 /// </summary>
-public sealed class SearchInsurancesQueryHandler 
+public sealed class SearchInsurancesListQueryHandler 
     : IQueryHandler<SearchInsurancesQuery, List<InsuranceResponse>>
 {
     private readonly IApplicationDbContext _context;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SearchInsurancesQueryHandler"/> class.
+    /// Initializes a new instance of the <see cref="SearchInsurancesListQueryHandler"/> class.
     /// </summary>
     /// <param name="context">The application database context.</param>
-    public SearchInsurancesQueryHandler(IApplicationDbContext context)
+    public SearchInsurancesListQueryHandler(IApplicationDbContext context)
     {
         _context = context;
     }

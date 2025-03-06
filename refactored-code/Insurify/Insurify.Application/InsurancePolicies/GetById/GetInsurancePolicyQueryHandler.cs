@@ -5,15 +5,15 @@ namespace Insurify.Application.InsurancePolicies.GetById;
 /// <summary>
 /// Handler for the <see cref="GetInsurancePolicyQuery"/>.
 /// </summary>
-public sealed class InsurancePolicyQueryHandler
+public sealed class GetInsurancePolicyQueryHandler
 {
     private readonly IInsurancePolicyRepository _insurancePolicyRepository;
 
     /// <summary>
-    /// Constructor for the <see cref="InsurancePolicyQueryHandler"/>.
+    /// Constructor for the <see cref="GetInsurancePolicyQueryHandler"/>.
     /// </summary>
     /// <param name="insurancePolicyRepository"><see cref="IInsurancePolicyRepository" /></param>
-    public InsurancePolicyQueryHandler(IInsurancePolicyRepository insurancePolicyRepository)
+    public GetInsurancePolicyQueryHandler(IInsurancePolicyRepository insurancePolicyRepository)
     {
         _insurancePolicyRepository = insurancePolicyRepository;
     }

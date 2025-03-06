@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Insurify.Application.Abstractions.Dates;
 
 namespace Insurify.MVC.Models;
 
 public class ApplyForInsurancePolicyViewModel
 {
-
     // Customer Entries
     public string FirstName { get; set; } = string.Empty;
 
@@ -12,9 +12,9 @@ public class ApplyForInsurancePolicyViewModel
 
     [EmailAddress]
     public string Email { get; set; } = string.Empty;
-
     [DataType(DataType.Date)]
-    public DateOnly BirthDate { get; private set; } = DateOnly.MinValue;
+    public DateOnly BirthDate { get; set; }
+    
 
     [Display(Name = "Country")]
     public string AddressCountry { get; set; } = string.Empty;

@@ -1,10 +1,11 @@
-﻿using Insurify.Domain.Abstractions;
+﻿using Insurify.Application.Abstractions.Messaging;
+using Insurify.Domain.Abstractions;
 using Insurify.Domain.Customers;
 using Insurify.Domain.Shared;
 
 namespace Insurify.Application.Customers.Add
 {
-    internal sealed class AddCustomerCommandHandler
+    internal sealed class AddCustomerCommandHandler : ICommandHandler<AddCustomerCommand, int>
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -20,21 +21,28 @@ namespace Insurify.Application.Customers.Add
             _idCreator = idCreator;
         }
 
-        public async Task<Result<int>> Handle(AddCustomerCommand request, CancellationToken cancellationToken)
+        public async Task<Result<int>> Handle(
+            AddCustomerCommand command, 
+            CancellationToken cancellationToken)
         {
+            if(await _customerRepository.EmailExists(command.Email))
+            {
+                return Result.Failure<int>(CustomerErrors.EmailExists);
+            }
+
             var result = Customer.Create(
                 _idCreator,
-                new Name(request.FirstName),
-                new Name(request.LastName),
-                request.BirthDate,
-                new Email(request.Email),
+                new Name(command.FirstName),
+                new Name(command.LastName),
+                command.BirthDate,
+                new Email(command.Email),
                 new Address(
-                    request.AddressCountry,
-                    request.AddressState,
-                    request.AddressPostalCode,
-                    request.AddressCity,
-                    request.AddressStreet),
-                request.HasSecurityCertificate);
+                    command.AddressCountry,
+                    command.AddressState,
+                    command.AddressPostalCode,
+                    command.AddressCity,
+                    command.AddressStreet),
+                command.HasSecurityCertificate);
 
             _customerRepository.Add(result.Value, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);

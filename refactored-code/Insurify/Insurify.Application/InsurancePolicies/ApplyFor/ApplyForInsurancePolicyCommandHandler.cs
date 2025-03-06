@@ -1,4 +1,5 @@
 ﻿using Insurify.Application.Abstractions.Elligibility;
+using Insurify.Application.Abstractions.Messaging;
 using Insurify.Application.Abstractions.Pricing;
 using Insurify.Application.Exceptions;
 using Insurify.Domain.Abstractions;
@@ -11,7 +12,7 @@ namespace Insurify.Application.InsurancePolicies.ApplyFor;
 /// <summary>
 /// Handler for the <see cref="ApplyForInsurancePolicyCommand" />
 /// </summary>
-public class ApplyForInsurancePolicyCommandHandler
+public class ApplyForInsurancePolicyCommandHandler : ICommandHandler<ApplyForInsurancePolicyCommand, int>
 {
     private readonly ICustomerRepository _customerRepository;
     private readonly IInsuranceRepository _insuranceRepository;
@@ -53,12 +54,10 @@ public class ApplyForInsurancePolicyCommandHandler
     /// Handles the ApplyForInsurancePolicyCommand
     /// </summary>
     /// <param name="command"><see cref="ApplyForInsurancePolicyCommand"/></param>
-    /// <param name="result"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    public async Task<Result<int>> HandleAsync(
+    public async Task<Result<int>> Handle(
         ApplyForInsurancePolicyCommand command,
-        Result result,
         CancellationToken cancellationToken = default)
     {
         var customer = await _customerRepository.GetByIdAsync(command.SubscriberId, cancellationToken);

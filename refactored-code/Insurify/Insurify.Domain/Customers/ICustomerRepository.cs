@@ -26,5 +26,5 @@ public interface ICustomerRepository
     /// <param name="email">Email Adress</param>
     /// <param name="cancellationToken">A CancellationToken</param>
     /// <returns></returns>
-    Task<bool> EmailExists(string email, CancellationToken cancellationToken);
+    Task<bool> EmailExists(string email);
 }

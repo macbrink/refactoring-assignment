@@ -26,4 +26,4 @@ public sealed record AddCustomerCommand(
     string AddressCity,
     string AddressStreet,
     bool HasSecurityCertificate
-    ) : ICommand;
+    ) : ICommand<int>;

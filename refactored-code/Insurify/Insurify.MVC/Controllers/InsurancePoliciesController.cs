@@ -1,4 +1,5 @@
-﻿using Insurify.Application.Customers.Add;
+﻿using Insurify.Application.Abstractions.Dates;
+using Insurify.Application.Customers.Add;
 using Insurify.Application.InsurancePolicies.ApplyFor;
 using Insurify.Application.Insurances.GetById;
 using Insurify.Application.Insurances.Shared;
@@ -37,7 +38,8 @@ public class InsurancePoliciesController : Controller
 
         var viewModel = new ApplyForInsurancePolicyViewModel()
         {
-            InsuranceId = result.Value.Id
+            InsuranceId = result.Value.Id,
+            BirthDate = DateOnly.FromDateTime(DateTime.Now.AddYears(-16))
         };
         ViewBag.Title = $"Apply for {result.Value.Name}";
         return View(viewModel);
@@ -76,7 +78,7 @@ public class InsurancePoliciesController : Controller
         var applyForInsurancePolicyCommand = new ApplyForInsurancePolicyCommand(
             viewModel.InsuranceId,
             customerId.Value,
-            DateTime.Now,
+            DateTime.Now.AddDays(7),
             new Money(
                 viewModel.InsuredAmount,
                 Currency.Eur)
