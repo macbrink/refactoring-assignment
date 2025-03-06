@@ -17,6 +17,14 @@ public interface ICustomerRepository
     /// Add a customer to the repository
     /// </summary>
     /// <param name="customer">a Customer instance</param>
-    /// <param name="cancellationToken">a CancellationToken</param>
+    /// <param name="cancellationToken">A CancellationToken</param>
     void Add(Customer customer, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Check if an email already exists in the repository
+    /// </summary>
+    /// <param name="email">Email Adress</param>
+    /// <param name="cancellationToken">A CancellationToken</param>
+    /// <returns></returns>
+    Task<bool> EmailExists(string email, CancellationToken cancellationToken);
 }

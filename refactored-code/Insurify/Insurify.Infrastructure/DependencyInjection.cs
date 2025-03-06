@@ -1,4 +1,5 @@
 ﻿using Insurify.Application.Abstractions.Data;
+using Insurify.Application.Abstractions.Dates;
 using Insurify.Application.Abstractions.Elligibility;
 using Insurify.Application.Abstractions.Email;
 using Insurify.Application.Abstractions.Pricing;
@@ -9,6 +10,7 @@ using Insurify.Domain.Insurances;
 using Insurify.Infrastructure.Data;
 using Insurify.Infrastructure.Email;
 using Insurify.Infrastructure.Repositories;
+using Insurify.Infrastructure.Services.BirthDateService;
 using Insurify.Infrastructure.Services.ElligibilityServices;
 using Insurify.Infrastructure.Services.IdCreatorServices;
 using Insurify.Infrastructure.Services.PricingServices;
@@ -32,6 +34,7 @@ namespace Insurify.Infrastructure;
 /// - SqlConnectionFactory
 /// - ApplicationDbContext
 /// - ISqlConnectionFactory
+/// - ICustomerBirthDatService
 /// </summary>
 public static class DependencyInjection
 {
@@ -52,6 +55,8 @@ public static class DependencyInjection
         services.AddTransient<IPricingServiceFactory, PricingServicesFactory>();
 
         services.AddTransient<IEmailService, EmailService>();
+
+        services.AddSingleton<ICustomerBirthDateService, BirthDateService>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 

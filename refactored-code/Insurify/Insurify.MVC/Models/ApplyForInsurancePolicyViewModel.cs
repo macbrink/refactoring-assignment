@@ -25,6 +25,9 @@ public class ApplyForInsurancePolicyViewModel
     [Display(Name = "Postal Code")]
     public string AddressPostalCode { get; set; } = string.Empty;
 
+    [Display(Name = "City")]
+    public string AddressCity { get; set; } = string.Empty;
+
     [Display(Name = "Street")]
     public string AddressStreet { get; set; } = string.Empty;
 
