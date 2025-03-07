@@ -29,6 +29,9 @@ public class Program
         }
         else
         {
+            app.UseDeveloperExceptionPage();
+            app.ApplyMigrations();
+
             // Uncomment this to seed the database with some data.
             // app.SeedData();
         }

@@ -3,7 +3,7 @@
 namespace Insurify.Application.InsurancePolicies.GetById;
 
 /// <summary>
-/// Response for the <see cref="GetInsurancePolicyQuery"/>.
+/// Response for the <see cref="GetInsurancePolicyByIdQuery"/>.
 /// </summary>
 public class InsurancePolicyResponse
 {

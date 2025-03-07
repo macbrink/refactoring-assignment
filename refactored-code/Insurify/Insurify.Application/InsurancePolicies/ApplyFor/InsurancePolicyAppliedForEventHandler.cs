@@ -8,7 +8,7 @@ using Insurify.Domain.Insurances;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Insurify.Application.Abstractions.Elligibility;
 
-namespace Insurify.Application.InsurancePolicies.ApplyForI;
+namespace Insurify.Application.InsurancePolicies.ApplyFor;
 
 /// <summary>
 /// Command To be issued after an insurance policy has been applied for.
@@ -76,10 +76,10 @@ internal sealed class InsurancePolicyAppliedForEventHandler : INotificationHandl
 
         var insuranceElligibilityChecker = _eligibilityCheckerFactory.GetEligibilityChecker(insurance);
 
-        bool elligible = (insuranceElligibilityChecker.IsEligible(
+        bool elligible = insuranceElligibilityChecker.IsEligible(
             insurance,
             customer,
-            cancellationToken));
+            cancellationToken);
 
         if (elligible)
         {

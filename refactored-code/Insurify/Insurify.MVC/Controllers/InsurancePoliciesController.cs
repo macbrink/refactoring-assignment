@@ -1,5 +1,5 @@
-﻿using Insurify.Application.Abstractions.Dates;
-using Insurify.Application.Customers.Add;
+﻿using Insurify.Application.Customers.Add;
+using Insurify.Application.Exceptions;
 using Insurify.Application.InsurancePolicies.ApplyFor;
 using Insurify.Application.InsurancePolicies.GetById;
 using Insurify.Application.Insurances.GetById;
@@ -46,6 +46,7 @@ public class InsurancePoliciesController : Controller
         return View(viewModel);
     }
 
+    // POST: InsurancePolicies/ApplyFor
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> ApplyFor(ApplyForInsurancePolicyViewModel viewModel)
@@ -55,23 +56,52 @@ public class InsurancePoliciesController : Controller
             return View(viewModel);
         }
 
-        Result<int> customerResult = await AddCustomer(viewModel);
+        int customerId;
+        int insurancePolicyId;
 
-        if(customerResult.IsFailure)
+        try
         {
-            ModelState.AddModelError(string.Empty, customerResult.Error.Name);
+            var customerResult = await AddCustomer(viewModel);
+
+
+            if (customerResult.IsFailure)
+            {
+                ModelState.AddModelError(string.Empty, customerResult.Error.Name);
+                return View(viewModel);
+            }
+            customerId = customerResult.Value;
+        }
+        catch(ValidationException ex)
+        {
+            foreach (var error in ex.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.ErrorMessage);
+            }
             return View(viewModel);
         }
-        
-        var insurancePolicyResult = await ApplyForInsurancePolicy(viewModel, customerResult);
 
-        if(insurancePolicyResult.IsFailure)
+        try
         {
-            ModelState.AddModelError(string.Empty, insurancePolicyResult.Error.Name);
+            var insurancePolicyResult = await ApplyForInsurancePolicy(viewModel, customerId);
+
+            if (insurancePolicyResult.IsFailure)
+            {
+                ModelState.AddModelError(string.Empty, insurancePolicyResult.Error.Name);
+                return View(viewModel);
+            }
+
+            insurancePolicyId = insurancePolicyResult.Value;
+        }
+        catch (ValidationException ex)
+        {
+            foreach (var error in ex.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.ErrorMessage);
+            }
             return View(viewModel);
         }
 
-        return RedirectToAction(nameof(Details), new { id = insurancePolicyResult.Value} );
+        return RedirectToAction(nameof(Details), new { id = insurancePolicyId} );
     }
 
     // GET: InsurancePolicies/Details/5

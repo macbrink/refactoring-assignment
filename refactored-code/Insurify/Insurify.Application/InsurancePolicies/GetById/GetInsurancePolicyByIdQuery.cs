@@ -10,4 +10,4 @@ namespace Insurify.Application.InsurancePolicies.GetById;
 /// Query to get an insurance policy.
 /// </summary>
 /// <param name="InsurancePolicyId">The Id for the insurance policy</param>
-public sealed record GetInsurancePolicyByIdQuery(int InsurancePolicyId) : IQuery<InsurancePolicyResponse>;
+public sealed record GetInsurancePolicyByIdQuery(int? InsurancePolicyId) : IQuery<InsurancePolicyResponse>;
