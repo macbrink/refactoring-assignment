@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insurify.Infrastructure", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insurify.MVC", "src\Insurify.MVC\Insurify.MVC.csproj", "{6CBBBE20-2309-47FD-9DBB-9DD22057260F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insurify.Domain.UnitTests", "test\Insurify.Domain.UnitTests\Insurify.Domain.UnitTests.csproj", "{8F32AA0E-E71B-4363-BC42-3B8F5829F049}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +35,15 @@ Global
 		{6CBBBE20-2309-47FD-9DBB-9DD22057260F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CBBBE20-2309-47FD-9DBB-9DD22057260F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CBBBE20-2309-47FD-9DBB-9DD22057260F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F32AA0E-E71B-4363-BC42-3B8F5829F049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F32AA0E-E71B-4363-BC42-3B8F5829F049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F32AA0E-E71B-4363-BC42-3B8F5829F049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F32AA0E-E71B-4363-BC42-3B8F5829F049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BAB031A-750A-4F0E-A4E9-B490290F5102}
 	EndGlobalSection
 EndGlobal
