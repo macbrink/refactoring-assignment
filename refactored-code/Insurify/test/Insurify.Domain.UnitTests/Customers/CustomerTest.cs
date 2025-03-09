@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Insurify.Domain.Customers;
+using Insurify.Domain.Customers.Events;
 
 namespace Insurify.Domain.UnitTests.Customers;
 
@@ -31,5 +32,27 @@ public class CustomerTest
         customer.Email.Should().Be(CustomerData.Email);
         customer.Address.Should().Be(CustomerData.Address);
         customer.HasSecurityCertificate.Should().Be(CustomerData.HasSecurityCertificate);
+    }
+
+    [Fact]
+    public void Create_Should_RaiseCustomerCreatedDomainEvent()
+    {
+        // Act
+        var result = Customer.Create(
+            new CustomerIdCreator(),
+            CustomerData.FirstName,
+            CustomerData.LastName,
+            CustomerData.BirthDate,
+            CustomerData.Email,
+            CustomerData.Address,
+            CustomerData.HasSecurityCertificate
+        );
+        // Assert Result
+        result.IsSuccess.Should().BeTrue();
+        Customer customer = result.Value;
+        // Assert customer events
+        var domainEvents = customer.GetDomainEvents;
+        domainEvents.Should().ContainSingle()
+            .Which.Should().BeOfType<CustomerCreatedDomainEvent>();
     }
 }
