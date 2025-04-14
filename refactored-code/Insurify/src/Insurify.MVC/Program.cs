@@ -1,7 +1,6 @@
 using Insurify.MVC.Extensions; // leave this if you want to use app.SeedData()
 using Insurify.Application;
 using Insurify.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 
 namespace Insurify.MVC;
 
@@ -35,7 +34,6 @@ public class Program
             // Uncomment this to seed the database with some data.
             // app.SeedData();
         }
-
 
         app.UseHttpsRedirection();
         app.UseRouting();

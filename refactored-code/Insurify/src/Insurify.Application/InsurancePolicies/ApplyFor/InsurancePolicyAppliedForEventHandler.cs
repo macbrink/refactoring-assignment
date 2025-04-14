@@ -13,7 +13,7 @@ namespace Insurify.Application.InsurancePolicies.ApplyFor;
 /// <summary>
 /// Command To be issued after an insurance policy has been applied for.
 /// </summary>
-internal sealed class InsurancePolicyAppliedForEventHandler : INotificationHandler<InsurancePolicyAppliedForDomainEvent>
+internal sealed class AnotherInsurancePolicyAppliedForEventHandler : INotificationHandler<InsurancePolicyAppliedForDomainEvent>
 {
     private readonly ICustomerRepository _customerRepository;
     private readonly IInsuranceRepository _insuranceRepository;
@@ -31,7 +31,7 @@ internal sealed class InsurancePolicyAppliedForEventHandler : INotificationHandl
     /// <param name="eligibilityCheckerFactory">Factory for Eligibility Checker</param>
     /// <param name="unitOfWork">the unit of work</param>
     /// <param name="emailservice">the email service</param>
-    public InsurancePolicyAppliedForEventHandler(
+    public AnotherInsurancePolicyAppliedForEventHandler(
         ICustomerRepository customerRepository,
         IInsuranceRepository insuranceRepository,
         IInsurancePolicyRepository insurancePolicyRepository,

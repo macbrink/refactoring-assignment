@@ -15,10 +15,7 @@ internal class SqlConnectionFactory : ISqlConnectionFactory
     /// Constructor for SqlConnectionFactory.
     /// </summary>
     /// <param name="connectionString">The connection string to use.</param>
-    public SqlConnectionFactory(string connectionString)
-    {
-        _connectionString = connectionString;
-    }
+    
     /// <summary>
     /// Create a new SQL connection.
     /// </summary>
